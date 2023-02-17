@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Used libraries
 
-- [Zustand](https://github.com/pmndrs/zustand) for state management
+- [Redux toolkit](https://redux-toolkit.js.org/) for state management
 - [React-hook-form](https://react-hook-form.com/get-started) for form handling
 - [yup](https://www.npmjs.com/package/yup) for form validations
 - [React-query](https://react-query-v3.tanstack.com/) for fetch & data handling
