@@ -56,7 +56,7 @@ const DietsForm: FC = ({}) => {
                 <Controller render={({ field }) => <Checkbox {...field} />} name="paleo" control={control} />
                 <label>Paleo</label>
             </div>
-            <Input type="submit" />
+            <Input type="submit" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bold' }} />
         </form>
     );
 };

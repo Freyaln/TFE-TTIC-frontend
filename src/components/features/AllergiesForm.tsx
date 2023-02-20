@@ -102,7 +102,7 @@ const AllergiesForm: FC = ({}) => {
                     <label>Wheat</label>
                 </div>
             </section>
-            <Input type="submit" sx={{ alignSelf: 'flex-start' }} />
+            <Input type="submit" sx={{ alignSelf: 'flex-start', fontFamily: 'Playfair Display', fontWeight: 'bold' }} />
         </form>
     );
 };

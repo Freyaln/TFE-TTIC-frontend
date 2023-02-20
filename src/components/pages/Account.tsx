@@ -53,7 +53,7 @@ const Account: FC = ({}) => {
     return (
         <Box sx={{ height: '100%' }}>
             <header style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25%' }}>
-                <Typography variant="h1" fontSize="2rem">
+                <Typography variant="h1" fontSize="2rem" sx={{ fontFamily: 'Playfair Display' }}>
                     Account settings
                 </Typography>
             </header>
@@ -67,7 +67,11 @@ const Account: FC = ({}) => {
                             }}
                         >
                             <ListItemButton component="a" href="#security" onClick={() => handleSection('security')}>
-                                <ListItemText primary="Security" id="security" />
+                                <ListItemText
+                                    primary="Security"
+                                    id="security"
+                                    primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
+                                />
                             </ListItemButton>
                         </ListItem>
                         <ListItem
@@ -77,7 +81,11 @@ const Account: FC = ({}) => {
                             }}
                         >
                             <ListItemButton component="a" href="#email" onClick={() => handleSection('email')}>
-                                <ListItemText primary="Email" id="email" />
+                                <ListItemText
+                                    primary="Email"
+                                    id="email"
+                                    primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
+                                />
                             </ListItemButton>
                         </ListItem>
                         <ListItem
@@ -87,7 +95,11 @@ const Account: FC = ({}) => {
                             }}
                         >
                             <ListItemButton component="a" href="#diets" onClick={() => handleSection('diets')}>
-                                <ListItemText primary="Diets" id="diets" />
+                                <ListItemText
+                                    primary="Diets"
+                                    id="diets"
+                                    primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
+                                />
                             </ListItemButton>
                         </ListItem>
                         <ListItem
@@ -97,7 +109,24 @@ const Account: FC = ({}) => {
                             }}
                         >
                             <ListItemButton component="a" href="#allergies" onClick={() => handleSection('allergies')}>
-                                <ListItemText primary="Int./Allergies" id="allergies" />
+                                <ListItemText
+                                    primary="Int./Allergies"
+                                    id="allergies"
+                                    primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem
+                            sx={{
+                                textDecoration: underline.target === 'allergies' ? 'underline' : 'none',
+                                textUnderlineOffset: '0.5rem',
+                            }}
+                        >
+                            <ListItemButton component="a" href="/">
+                                <ListItemText
+                                    primary="Back"
+                                    primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
+                                />
                             </ListItemButton>
                         </ListItem>
                     </List>

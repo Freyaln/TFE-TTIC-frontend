@@ -57,7 +57,7 @@ const EmailForm: FC = ({}) => {
                     control={control}
                 />
             </div>
-            <Input type="submit" />
+            <Input type="submit" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bold' }} />
         </form>
     );
 };
