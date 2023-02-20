@@ -1,5 +1,4 @@
 import { ChangeEvent, FC } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
 
 export interface ISearchBarProps {
     inputClass: string;
@@ -18,7 +17,7 @@ const SearchBar: FC<ISearchBarProps> = ({ inputClass, onChange }) => {
                 placeholder="Search..."
                 onChange={onChange}
                 className={inputClass}
-                style={{ width: 140, border: 'black 1px solid', borderRadius: '5px' }}
+                style={{ width: 120, border: 'black 1px solid', borderRadius: '5px' }}
             />
         </div>
     );

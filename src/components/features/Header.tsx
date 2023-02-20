@@ -42,7 +42,7 @@ const Header: FC = ({}) => {
                             <ListItemText primary="Recipes" primaryTypographyProps={{ fontSize: '0.85rem' }} />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem>
+                    <ListItem sx={{ whiteSpace: 'nowrap' }}>
                         <ListItemButton component="a" href="/wines-guide">
                             <ListItemText primary="Wines guides" primaryTypographyProps={{ fontSize: '0.85rem' }} />
                         </ListItemButton>
