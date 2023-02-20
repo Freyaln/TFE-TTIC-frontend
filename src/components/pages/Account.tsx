@@ -116,12 +116,7 @@ const Account: FC = ({}) => {
                                 />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem
-                            sx={{
-                                textDecoration: underline.target === 'allergies' ? 'underline' : 'none',
-                                textUnderlineOffset: '0.5rem',
-                            }}
-                        >
+                        <ListItem>
                             <ListItemButton component="a" href="/">
                                 <ListItemText
                                     primary="Back"

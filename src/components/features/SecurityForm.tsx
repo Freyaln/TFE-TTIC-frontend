@@ -57,7 +57,19 @@ const SecurityForm: FC = ({}) => {
                     control={control}
                 />
             </div>
-            <Input type="submit" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bold' }} />
+            <Input
+                type="submit"
+                sx={{
+                    fontFamily: 'Playfair Display',
+                    fontWeight: 'bold',
+                    padding: '0.25rem 0.75rem 0.25rem 0.75rem',
+                    backgroundColor: '#906942',
+                    borderRadius: '5px',
+                    border: 'none',
+                    color: '#FFF',
+                    '::before': { border: 'none' },
+                }}
+            />
         </form>
     );
 };

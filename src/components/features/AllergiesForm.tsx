@@ -76,6 +76,20 @@ const AllergiesForm: FC = ({}) => {
                     <label>Seafood</label>
                 </div>
             </section>
+            <Input
+                type="submit"
+                sx={{
+                    fontFamily: 'Playfair Display',
+                    fontWeight: 'bold',
+                    padding: '0.25rem 0.75rem 0.25rem 0.75rem',
+                    marginLeft: '10%',
+                    backgroundColor: '#906942',
+                    borderRadius: '5px',
+                    border: 'none',
+                    color: '#FFF',
+                    '::before': { border: 'none' },
+                }}
+            />
             <section>
                 <div>
                     <Controller render={({ field }) => <Checkbox {...field} />} name="sesame" control={control} />
@@ -102,7 +116,6 @@ const AllergiesForm: FC = ({}) => {
                     <label>Wheat</label>
                 </div>
             </section>
-            <Input type="submit" sx={{ alignSelf: 'flex-start', fontFamily: 'Playfair Display', fontWeight: 'bold' }} />
         </form>
     );
 };
