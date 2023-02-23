@@ -1,47 +1,35 @@
 import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IPhotosState, setPhotosDatas } from '../slices/recipesSlices';
-import { usePhotosMutation } from '../services/photos.api';
 import { useDispatch, useSelector } from 'react-redux';
+import { getRandomRecipe } from '../services/recipes.api';
+import { useQuery } from 'react-query';
+import { Irecipes } from '../../interfaces/recipesInterfaces';
+import { setRandomRecipesDatas } from '../slices/recipesSlices';
 
-export interface IPhotosDefinition {
-    albumId: number;
-    id: number;
-    title: string;
-    url: string;
-    thumbnailUrl: string;
-}
 const HomeList: React.FC = ({}) => {
-    //const [photos, setPhotos] = useState<IPhotosDefinition[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [fetchPhotos] = usePhotosMutation();
     const dispatch = useDispatch();
     const maxWidth = 0.95 * screen.width;
-
+    const { data } = useQuery('randomRecipe', getRandomRecipe);
     // TODO FIX THIS ERROR
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const photos = useSelector((state: IPhotosState) => state.photos['photos']);
+    const recipe = useSelector((state: Irecipes) => state.recipe['recipe']);
     useEffect(() => {
-        (async () => {
-            const datas = await fetchPhotos().unwrap();
-            dispatch(setPhotosDatas(datas));
-            //setPhotos(datas);
-            setIsLoading(false);
-        })();
-    }, [dispatch]);
+        dispatch(setRandomRecipesDatas(data!));
+    }, [dispatch, data]);
 
+    console.log(recipe);
     return (
         <Box>
-            {photos && (
+            {recipe && (
                 <ImageList cols={2} sx={{ width: maxWidth, height: 'auto', margin: '0 auto', marginTop: '1rem' }}>
-                    {photos.map((i: IPhotosDefinition) => (
+                    {recipe.map((i: Irecipes) => (
                         <ImageListItem key={i.id}>
                             <Link to={`/recipe/${i.title}`}>
-                                <img src={`${i.url}?w=248&fit=crop&auto=format`} alt={i.title} loading="lazy" />
+                                <img src={`${i.image}?w=248&fit=crop&auto=format`} alt={i.title} loading="lazy" />
                             </Link>
-                            <ImageListItemBar title={i.title}></ImageListItemBar>
+                            <ImageListItemBar title={i.title} sx={{ fontSize: '0.75rem' }}></ImageListItemBar>
                         </ImageListItem>
                     ))}
                 </ImageList>
