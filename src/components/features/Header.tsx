@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import Sidebar from './Sidebar';
+import Sidebar from './menu/Sidebar';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
 import { Box } from '@mui/material';
 import MenuList from './MenuList';
@@ -17,7 +17,7 @@ const Sidebar: FC = ({}) => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', position: 'relative' }}>
             <IconButton onClick={() => handleOpenSideMenu(true)} sx={{}}>
                 <MenuIcon fontSize="large" />
             </IconButton>
@@ -34,6 +34,14 @@ const Sidebar: FC = ({}) => {
                     },
                 }}
             >
+                <Box sx={{ position: 'absolute', top: 0, right: 0 }}>
+                    <IconButton
+                        onClick={() => handleCloseSideMenu(false)}
+                        sx={{ position: 'absolute', top: 0, right: 0 }}
+                    >
+                        <CloseIcon fontSize="large" />
+                    </IconButton>
+                </Box>
                 <MenuList />
             </Drawer>
         </Box>

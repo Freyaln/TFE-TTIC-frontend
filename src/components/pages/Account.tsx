@@ -4,10 +4,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import SecurityForm from '../features/SecurityForm';
-import EmailForm from '../features/EmailForm';
-import DietsForm from '../features/DietsForm';
-import AllergiesForm from '../features/AllergiesForm';
+import SecurityForm from '../features/forms/SecurityForm';
+import EmailForm from '../features/forms/EmailForm';
+import DietsForm from '../features/forms/DietsForm';
+import AllergiesForm from '../features/forms/AllergiesForm';
 
 interface IUnderline {
     target: string;
