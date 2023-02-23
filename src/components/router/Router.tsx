@@ -8,17 +8,16 @@ import Login from '../pages/Login';
 import Recovery from '../pages/Recovery';
 import Signup from '../pages/Signup';
 import App from '../../App';
-import { useDispatch, useSelector } from 'react-redux';
-import { IPhotosState } from '../slices/recipesSlices';
+import { useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router';
-import React from 'react';
-import { IPhotosDefinition } from '../features/MainList';
+import { Irecipes } from '../../interfaces/recipesInterfaces';
+import { IrecipesState } from '../slices/recipesSlices';
 
 function IndexRouter() {
     // TODO FIX THIS ERROR
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const photos = useSelector((state: IPhotosState) => state.photos['photos']);
+    const recipes = useSelector((state: IrecipesState) => state.recipe['recipe']);
     const router = createBrowserRouter([
         {
             path: '/',
@@ -31,9 +30,9 @@ function IndexRouter() {
                 {
                     path: 'recipe/:title',
                     loader: async ({ params }) => {
-                        const photo = photos.find((i: IPhotosDefinition) => i.title.toString() === params.title);
-                        if (photo) {
-                            return photo;
+                        const recipe = recipes.find((i: Irecipes) => i.title.toString() === params.title);
+                        if (recipe) {
+                            return recipe;
                         } else {
                             throw new Error(`Photo with title ${params.title} not found`);
                         }
