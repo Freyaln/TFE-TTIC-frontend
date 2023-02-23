@@ -1,7 +1,11 @@
 import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { IPhotosState, setPhotosDatas } from '../slices/recipesSlices';
+import { usePhotosMutation } from '../services/photos.api';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface IPhotosDefinition {
+export interface IPhotosDefinition {
     albumId: number;
     id: number;
     title: string;
@@ -9,27 +13,34 @@ interface IPhotosDefinition {
     thumbnailUrl: string;
 }
 const HomeList: React.FC = ({}) => {
-    const [photos, setPhotos] = useState<IPhotosDefinition[]>([]);
+    //const [photos, setPhotos] = useState<IPhotosDefinition[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    // const [ fetchPhotos ] = usePhotosMutation();
+    const [fetchPhotos] = usePhotosMutation();
+    const dispatch = useDispatch();
     const maxWidth = 0.95 * screen.width;
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/photos?_limit=100')
-            .then((res) => res.json())
-            .then((data) => setPhotos(() => data))
-            .catch((error) => console.error(error));
-        setIsLoading(false);
-    }, []);
 
-    console.log(photos);
+    // TODO FIX THIS ERROR
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const photos = useSelector((state: IPhotosState) => state.photos['photos']);
+    useEffect(() => {
+        (async () => {
+            const datas = await fetchPhotos().unwrap();
+            dispatch(setPhotosDatas(datas));
+            //setPhotos(datas);
+            setIsLoading(false);
+        })();
+    }, [dispatch]);
 
     return (
         <Box>
-            {!isLoading && (
+            {photos && (
                 <ImageList cols={2} sx={{ width: maxWidth, height: 'auto', margin: '0 auto', marginTop: '1rem' }}>
-                    {photos.map((i) => (
+                    {photos.map((i: IPhotosDefinition) => (
                         <ImageListItem key={i.id}>
-                            <img src={`${i.url}?w=248&fit=crop&auto=format`} alt={i.title} loading="lazy" />
+                            <Link to={`/recipe/${i.title}`}>
+                                <img src={`${i.url}?w=248&fit=crop&auto=format`} alt={i.title} loading="lazy" />
+                            </Link>
                             <ImageListItemBar title={i.title}></ImageListItemBar>
                         </ImageListItem>
                     ))}
@@ -38,5 +49,4 @@ const HomeList: React.FC = ({}) => {
         </Box>
     );
 };
-
 export default HomeList;
