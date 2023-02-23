@@ -1,23 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IPhotosDefinition } from '../features/MainList';
-
-export interface IPhotosState {
-    photos: IPhotosDefinition[];
+import { Irecipes } from '../../interfaces/recipesInterfaces';
+export interface IrecipesState {
+    recipe: Irecipes[];
 }
 
-const initialState: IPhotosState = {
-    photos: [],
+const initialState: IrecipesState = {
+    recipe: [],
 };
 
-export const photosSlice = createSlice({
-    name: 'photos',
+export const recipesSlice = createSlice({
+    name: 'recipes',
     initialState,
     reducers: {
-        setPhotosDatas: (state, action: PayloadAction<IPhotosDefinition[]>) => {
-            state.photos = action.payload;
+        setRandomRecipesDatas: (state, action: PayloadAction<Irecipes[]>) => {
+            state.recipe = action.payload;
         },
     },
 });
 
-export const { setPhotosDatas } = photosSlice.actions;
-export default photosSlice.reducer;
+export const { setRandomRecipesDatas } = recipesSlice.actions;
+export default recipesSlice.reducer;
