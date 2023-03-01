@@ -8,8 +8,13 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import GradeIcon from '@mui/icons-material/Grade';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Box } from '@mui/material';
+import { clearStorageToken } from '../../utils/Storage';
 
 const MenuList: FC = ({}) => {
+    const handleDisconnect = () => {
+        clearStorageToken();
+    };
+
     return (
         <Box>
             <List>
@@ -34,7 +39,7 @@ const MenuList: FC = ({}) => {
                         <ListItemIcon>
                             <LogoutIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Logout" />
+                        <ListItemText primary="Logout" onClick={handleDisconnect} />
                     </ListItemButton>
                 </ListItem>
             </List>
