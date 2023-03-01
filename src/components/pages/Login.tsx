@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import LoginForm from '../features/forms/LoginForm';
 
 const Login: FC = ({}) => {
-    return <div>{/* Add your component implementation here */}</div>;
+    return <LoginForm />;
 };
 
 export default Login;

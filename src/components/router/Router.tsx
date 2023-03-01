@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { IrecipesState } from '../slices/recipesSlices';
+import Guard from '../utils/Guard';
 
 function IndexRouter() {
     // TODO FIX THIS ERROR
@@ -21,7 +22,7 @@ function IndexRouter() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <App />,
+            element: <Guard target={<App />} guards="auth" />,
             children: [
                 {
                     index: true,
@@ -61,11 +62,11 @@ function IndexRouter() {
                     path: 'login/password-recovery',
                     element: <Recovery />,
                 },
-                {
-                    path: 'login/account-creation',
-                    element: <Signup />,
-                },
             ],
+        },
+        {
+            path: '/account-creation',
+            element: <Signup />,
         },
     ]);
     return <RouterProvider router={router} />;
