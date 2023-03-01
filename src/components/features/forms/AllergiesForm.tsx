@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Checkbox, Input } from '@mui/material';
+import { useLocation } from 'react-router';
+import { updateAllergiesForm } from '../../slices/registerSlices';
+import { useDispatch } from 'react-redux';
 
-interface IAllergiesFormInput {
+export interface IAllergiesFormInput {
     dairy: boolean;
     egg: boolean;
     gluten: boolean;
@@ -17,6 +20,8 @@ interface IAllergiesFormInput {
     wheat: boolean;
 }
 const AllergiesForm: FC = ({}) => {
+    const location = useLocation();
+    const dispatch = useDispatch();
     const { control, handleSubmit } = useForm({
         defaultValues: {
             dairy: false,
@@ -36,19 +41,32 @@ const AllergiesForm: FC = ({}) => {
 
     const onSubmit: SubmitHandler<IAllergiesFormInput> = (data) => {
         console.log(data);
+        location.pathname === '/account-creation' ? dispatch(updateAllergiesForm(data)) : null;
     };
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                gap: '1rem',
-                maxHeight: '30rem',
-                flexWrap: 'wrap',
-            }}
+            style={
+                location.pathname === '/account-creation'
+                    ? {
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignContent: 'space-around',
+                          justifyContent: 'center',
+                          gap: '1rem',
+                          maxHeight: '30rem',
+                          flexWrap: 'wrap',
+                      }
+                    : {
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          gap: '1rem',
+                          maxHeight: '30rem',
+                          flexWrap: 'wrap',
+                      }
+            }
         >
             <section>
                 <div>

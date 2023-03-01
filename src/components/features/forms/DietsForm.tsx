@@ -1,15 +1,20 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Checkbox, Input } from '@mui/material';
+import { useLocation } from 'react-router';
+import { updateDietsForm } from '../../slices/registerSlices';
+import { useDispatch } from 'react-redux';
 
-interface IDietsFormInput {
+export interface IDietsFormInput {
     gluten_free: boolean;
     vegetarian: boolean;
     vegan: boolean;
     pescetarian: boolean;
     paleo: boolean;
 }
-const DietsForm: FC = ({}) => {
+const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTarget }) => {
+    const location = useLocation();
+    const dispatch = useDispatch();
     const { control, handleSubmit } = useForm({
         defaultValues: {
             gluten_free: false,
@@ -22,19 +27,29 @@ const DietsForm: FC = ({}) => {
 
     const onSubmit: SubmitHandler<IDietsFormInput> = (data) => {
         console.log(data);
+        location.pathname === '/account-creation' ? dispatch(updateDietsForm(data)) : null;
+        setTarget!('allergies');
     };
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                gap: '1rem',
-                marginLeft: '10%',
-            }}
+            style={
+                location.pathname === '/account-creation'
+                    ? {
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'stretch',
+                      }
+                    : {
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'flex-start',
+                          justifyContent: 'center',
+                          gap: '1rem',
+                          marginLeft: '10%',
+                      }
+            }
         >
             <div>
                 <Controller render={({ field }) => <Checkbox {...field} />} name="gluten_free" control={control} />
