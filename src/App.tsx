@@ -1,12 +1,14 @@
 import './App.css';
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import Header from './components/features/Header';
 import { Outlet } from 'react-router';
-import { recipesSlice } from './components/slices/recipesSlices';
+import { recipeReducer } from './components/slices/recipesSlices';
+import { registerReducer } from './components/slices/registerSlices';
 
 export const store = configureStore({
     reducer: {
-        recipe: recipesSlice.reducer,
+        recipe: recipeReducer,
+        register: registerReducer,
     },
 });
 
