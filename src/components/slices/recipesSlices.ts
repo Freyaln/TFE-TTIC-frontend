@@ -19,4 +19,4 @@ export const recipesSlice = createSlice({
 });
 
 export const { setRandomRecipesDatas } = recipesSlice.actions;
-export default recipesSlice.reducer;
+export const recipeReducer = recipesSlice.reducer;
