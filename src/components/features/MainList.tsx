@@ -18,8 +18,6 @@ const HomeList: React.FC = ({}) => {
     useEffect(() => {
         dispatch(setRandomRecipesDatas(data!));
     }, [dispatch, data]);
-
-    console.log(recipe);
     return (
         <Box>
             {recipe && (
