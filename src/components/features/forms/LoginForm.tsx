@@ -1,17 +1,19 @@
 import { FC } from 'react';
 import { Box, Button, Checkbox, Input, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Navigate, useNavigate } from 'react-router';
-import axios from 'axios';
-import { setStorageToken } from '../../utils/Storage';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../actions/auth.action';
 
-interface ILoginCreds {
+export interface ILoginCreds {
     email: string;
     password: string;
     remember: boolean;
 }
 
 const LoginForm: FC = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { control, handleSubmit } = useForm({
         defaultValues: {
             email: '',
@@ -19,27 +21,10 @@ const LoginForm: FC = () => {
             remember: false,
         },
     });
-
-    const navigate = useNavigate();
     const onSubmit: SubmitHandler<ILoginCreds> = (data) => {
-        axios
-            .post('http://localhost:5000/auth/login', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then((response) => {
-                if (response.status === 200) {
-                    const token = response.data.token;
-                    setStorageToken(token, data.remember);
-                    navigate('/');
-                } else {
-                    console.log(response.status);
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        const { email, password, remember } = data;
+        dispatch(authActions({ email, password, remember }) as any);
+        navigate('/account-settings');
     };
 
     return (

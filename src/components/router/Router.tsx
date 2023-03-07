@@ -22,7 +22,7 @@ function IndexRouter() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Guard target={<App />} guards="auth" />,
+            element: <Guard target={<App />} guards={['auth']} />,
             children: [
                 {
                     index: true,

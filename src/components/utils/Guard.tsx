@@ -1,20 +1,20 @@
-import { FC, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { getStorageToken } from './Storage';
 import { Navigate } from 'react-router';
 
 type GuardT = 'auth' | 'testingCase';
 
 interface GuardI {
-    guards: GuardT;
+    guards: GuardT[];
     target: React.ReactElement;
 }
 const Guard: FC<GuardI> = ({ guards, target }) => {
     const token = getStorageToken();
-    let redirect = null;
+    const [redirect, setRedirect] = useState<string | null>(null);
 
-    useEffect(() => {
-        guards === 'auth' && !token ? (redirect = '/login') : (redirect = '/');
-    }, [token, guards]);
+    function setUrl(token: string | null) {
+        guards.map((i) => (i === 'auth' && token ? setRedirect('/') : setRedirect('/login')));
+    }
 
     return redirect ? <Navigate to={redirect} /> : target;
 };

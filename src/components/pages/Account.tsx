@@ -8,6 +8,8 @@ import SecurityForm from '../features/forms/SecurityForm';
 import EmailForm from '../features/forms/EmailForm';
 import DietsForm from '../features/forms/DietsForm';
 import AllergiesForm from '../features/forms/AllergiesForm';
+import { useSelector } from 'react-redux';
+import { RootState, store } from '../utils/store';
 
 interface IUnderline {
     target: string;
@@ -16,6 +18,9 @@ interface IUnderline {
 const Account: FC = ({}) => {
     const [settingDisplayed, setSettingDisplayed] = useState<ReactComponentElement<FC>>(<SecurityForm />);
     const [underline, setUnderline] = useState<IUnderline>({ target: 'security' });
+
+    const user = useSelector((state: RootState) => state.auth.user);
+    console.log(user);
     function handleSection(target: string) {
         switch (target) {
             case 'security':
@@ -53,8 +58,12 @@ const Account: FC = ({}) => {
     return (
         <Box sx={{ height: '100%' }}>
             <header style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '25%' }}>
-                <Typography variant="h1" fontSize="2rem" sx={{ fontFamily: 'Playfair Display' }}>
-                    Account settings
+                <Typography
+                    variant="h1"
+                    fontSize="2rem"
+                    sx={{ fontFamily: 'Playfair Display', textAlign: 'center', maxWidth: '60%' }}
+                >
+                    account settings
                 </Typography>
             </header>
             <main style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50%' }}>
