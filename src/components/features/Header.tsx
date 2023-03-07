@@ -6,6 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import Searchbar from './Searchbar';
+import { Link } from 'react-router-dom';
 
 const Header: FC = ({}) => {
     const [searchDatas, setSearchDatas] = useState<string>('');
@@ -55,7 +56,7 @@ const Header: FC = ({}) => {
             >
                 <List sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
                     <ListItem>
-                        <ListItemButton component="a" href="/">
+                        <Link to="/">
                             <ListItemText
                                 primary="Recipes"
                                 primaryTypographyProps={{
@@ -64,10 +65,10 @@ const Header: FC = ({}) => {
                                     fontWeight: 'bold',
                                 }}
                             />
-                        </ListItemButton>
+                        </Link>
                     </ListItem>
                     <ListItem sx={{ whiteSpace: 'nowrap' }}>
-                        <ListItemButton component="a" href="/wines-guide">
+                        <Link to="/wines-guide">
                             <ListItemText
                                 primary="Wines guides"
                                 primaryTypographyProps={{
@@ -76,7 +77,7 @@ const Header: FC = ({}) => {
                                     fontWeight: 'bold',
                                 }}
                             />
-                        </ListItemButton>
+                        </Link>
                     </ListItem>
                 </List>
                 <Searchbar inputClass="searchBar" onChange={(e) => handleSearchInput(e.currentTarget.value)} />

@@ -10,6 +10,7 @@ import DietsForm from '../features/forms/DietsForm';
 import AllergiesForm from '../features/forms/AllergiesForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../utils/store';
+import { Link } from 'react-router-dom';
 
 interface IUnderline {
     target: string;
@@ -74,13 +75,13 @@ const Account: FC = ({}) => {
                                 textUnderlineOffset: '0.5rem',
                             }}
                         >
-                            <ListItemButton component="a" href="#security" onClick={() => handleSection('security')}>
+                            <Link to="#security" onClick={() => handleSection('security')}>
                                 <ListItemText
                                     primary="Security"
                                     id="security"
                                     primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
                                 />
-                            </ListItemButton>
+                            </Link>
                         </ListItem>
                         <ListItem
                             sx={{
@@ -88,13 +89,13 @@ const Account: FC = ({}) => {
                                 textUnderlineOffset: '0.5rem',
                             }}
                         >
-                            <ListItemButton component="a" href="#email" onClick={() => handleSection('email')}>
+                            <Link to="#email" onClick={() => handleSection('email')}>
                                 <ListItemText
                                     primary="Email"
                                     id="email"
                                     primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
                                 />
-                            </ListItemButton>
+                            </Link>
                         </ListItem>
                         <ListItem
                             sx={{
@@ -102,13 +103,13 @@ const Account: FC = ({}) => {
                                 textUnderlineOffset: '0.5rem',
                             }}
                         >
-                            <ListItemButton component="a" href="#diets" onClick={() => handleSection('diets')}>
+                            <Link to="#diets" onClick={() => handleSection('diets')}>
                                 <ListItemText
                                     primary="Diets"
                                     id="diets"
                                     primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
                                 />
-                            </ListItemButton>
+                            </Link>
                         </ListItem>
                         <ListItem
                             sx={{
@@ -116,21 +117,21 @@ const Account: FC = ({}) => {
                                 textUnderlineOffset: '0.5rem',
                             }}
                         >
-                            <ListItemButton component="a" href="#allergies" onClick={() => handleSection('allergies')}>
+                            <Link to="#allergies" onClick={() => handleSection('allergies')}>
                                 <ListItemText
                                     primary="Int./Allergies"
                                     id="allergies"
                                     primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
                                 />
-                            </ListItemButton>
+                            </Link>
                         </ListItem>
                         <ListItem>
-                            <ListItemButton component="a" href="/">
+                            <Link to="/">
                                 <ListItemText
                                     primary="Back"
                                     primaryTypographyProps={{ sx: { fontFamily: 'Playfair Display' } }}
                                 />
-                            </ListItemButton>
+                            </Link>
                         </ListItem>
                     </List>
                 </div>
