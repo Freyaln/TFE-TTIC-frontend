@@ -2,8 +2,10 @@ import { FC, useEffect } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Checkbox, Input } from '@mui/material';
 import { useLocation } from 'react-router';
-import { updateAllergiesForm } from '../../slices/registerSlices';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerAllergiesForm } from '../../slices/registerSlices';
+import { registerAction } from '../../actions/register.action';
+import { RootState } from '../../utils/store';
 
 export interface IAllergiesFormInput {
     dairy: boolean;
@@ -39,10 +41,14 @@ const AllergiesForm: FC = ({}) => {
         },
     });
 
+    const { credentialForm, dietsForm, allergiesForm } = useSelector((state: RootState) => state.register.forms);
     const onSubmit: SubmitHandler<IAllergiesFormInput> = (data) => {
-        console.log(data);
-        location.pathname === '/account-creation' ? dispatch(updateAllergiesForm(data)) : null;
+        location.pathname === '/account-creation' ? dispatch(registerAllergiesForm(data)) : null;
     };
+
+    useEffect(() => {
+        dispatch(registerAction({ credentialForm, dietsForm, allergiesForm }) as any);
+    }, [allergiesForm]);
 
     return (
         <form

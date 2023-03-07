@@ -2,12 +2,12 @@ import React, { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Box, Input } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { updateCreationForm } from '../../slices/registerSlices';
+import { registerCredentialForm } from '../../slices/registerSlices';
 
 export interface ICreationFormInput {
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
     username: string;
 }
 const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ setTarget }) => {
@@ -23,8 +23,9 @@ const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ set
     });
     const onSubmit: SubmitHandler<ICreationFormInput> = (data) => {
         if (data.password === data.confirmPassword) {
-            dispatch(updateCreationForm(data));
             setFormIsValid(true);
+            const { email, password, username } = data;
+            dispatch(registerCredentialForm({ email: email, password: password, username: username }));
             setTarget('diets');
         } else {
             setFormIsValid(false);

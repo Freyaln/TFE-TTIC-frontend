@@ -2,8 +2,8 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Checkbox, Input } from '@mui/material';
 import { useLocation } from 'react-router';
-import { updateDietsForm } from '../../slices/registerSlices';
 import { useDispatch } from 'react-redux';
+import { registerDietsForm } from '../../slices/registerSlices';
 
 export interface IDietsFormInput {
     gluten_free: boolean;
@@ -26,8 +26,7 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
     });
 
     const onSubmit: SubmitHandler<IDietsFormInput> = (data) => {
-        console.log(data);
-        location.pathname === '/account-creation' ? dispatch(updateDietsForm(data)) : null;
+        location.pathname === '/account-creation' ? dispatch(registerDietsForm(data)) : null;
         setTarget!('allergies');
     };
 

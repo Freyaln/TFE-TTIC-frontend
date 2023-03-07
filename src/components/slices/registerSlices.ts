@@ -1,48 +1,71 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICreationFormInput } from '../features/forms/CreationForm';
+import { IAuthErrorPayload } from './authSlices';
 import { IDietsFormInput } from '../features/forms/DietsForm';
 import { IAllergiesFormInput } from '../features/forms/AllergiesForm';
-export interface IregisterForm {
-    creationForm: ICreationFormInput;
-    dietsForm: IDietsFormInput;
-    allergiesForm: IAllergiesFormInput;
+
+export interface IRegisterCredentialsForm {
+    email: string;
+    username: string;
+    password: string;
+}
+export interface IRegisterState {
+    forms: {
+        credentialForm: IRegisterCredentialsForm | null;
+        dietsForm: IDietsFormInput | null;
+        allergiesForm: IAllergiesFormInput | null;
+    };
+    areFormsComplete: boolean;
+    isRegister: boolean;
+    isLoading: boolean;
+    error: string | null;
 }
 
-const initialState: IregisterForm = {
-    creationForm: { email: '', password: '', confirmPassword: '', username: '' },
-    dietsForm: { gluten_free: false, vegetarian: false, vegan: false, pescetarian: false, paleo: false },
-    allergiesForm: {
-        dairy: false,
-        egg: false,
-        gluten: false,
-        grain: false,
-        peanut: false,
-        seafood: false,
-        sesame: false,
-        shellfish: false,
-        soy: false,
-        sulfite: false,
-        tree_nut: false,
-        wheat: false,
+const initialState: IRegisterState = {
+    forms: {
+        credentialForm: null,
+        dietsForm: null,
+        allergiesForm: null,
     },
+    areFormsComplete: false,
+    isRegister: false,
+    isLoading: false,
+    error: null,
 };
 
 const registerSlice = createSlice({
     name: 'register',
     initialState,
     reducers: {
-        updateCreationForm(state, action: PayloadAction<ICreationFormInput>) {
-            state.creationForm = action.payload;
+        registerStart: (state) => {
+            state.isLoading = true;
+            state.error = null;
         },
-        updateDietsForm(state, action: PayloadAction<IDietsFormInput>) {
-            state.dietsForm = action.payload;
+        registerCredentialForm(state, action: PayloadAction<IRegisterCredentialsForm>) {
+            state.forms.credentialForm = action.payload;
         },
-        updateAllergiesForm(state, action: PayloadAction<IAllergiesFormInput>) {
-            state.allergiesForm = action.payload;
+        registerDietsForm(state, action: PayloadAction<IDietsFormInput>) {
+            state.forms.dietsForm = action.payload;
+        },
+        registerAllergiesForm(state, action: PayloadAction<IAllergiesFormInput>) {
+            state.forms.allergiesForm = action.payload;
+        },
+        registerSuccess: (state) => {
+            state.isLoading = false;
+        },
+        registerFailure: (state, action: PayloadAction<IAuthErrorPayload>) => {
+            state.error = action.payload.message;
+            state.isLoading = false;
         },
     },
 });
 
-export const { updateCreationForm, updateDietsForm, updateAllergiesForm } = registerSlice.actions;
+export const {
+    registerStart,
+    registerCredentialForm,
+    registerDietsForm,
+    registerAllergiesForm,
+    registerFailure,
+    registerSuccess,
+} = registerSlice.actions;
 
 export const registerReducer = registerSlice.reducer;

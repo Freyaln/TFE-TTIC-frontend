@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../services/auth.api';
-import { getStorageToken } from '../utils/Storage';
-
-const userToken = getStorageToken();
 
 export interface IAuthState {
     user: IUser | null;
@@ -11,7 +8,7 @@ export interface IAuthState {
     error: string | null;
 }
 
-interface IAuthErrorPayload {
+export interface IAuthErrorPayload {
     message: string;
 }
 

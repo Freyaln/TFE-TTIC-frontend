@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Input } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../utils/store';
 
 interface IPasswordFormInput {
     oldPassword: string;
@@ -9,6 +11,8 @@ interface IPasswordFormInput {
 }
 
 const SecurityForm: FC = ({}) => {
+    const user = useSelector((state: RootState) => state.auth.user);
+    const dispatch = useDispatch();
     const { control, handleSubmit } = useForm({
         defaultValues: {
             oldPassword: '',
