@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Box, Button, Checkbox, Input, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../actions/auth.action';
+import { RootState } from '../../utils/store';
+import { registerAction } from '../../actions/register.action';
 
 export interface ILoginCreds {
     email: string;
@@ -21,11 +23,18 @@ const LoginForm: FC = () => {
             remember: false,
         },
     });
+    const { credentialForm, dietsForm, allergiesForm } = useSelector((state: RootState) => state.register.forms);
     const onSubmit: SubmitHandler<ILoginCreds> = (data) => {
         const { email, password, remember } = data;
         dispatch(authActions({ email, password, remember }) as any);
         navigate('/');
     };
+
+    useEffect(() => {
+        credentialForm && dietsForm && allergiesForm
+            ? dispatch(registerAction({ credentialForm, dietsForm, allergiesForm }) as any)
+            : null;
+    }, []);
 
     return (
         <Box

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { getStorageToken } from './Storage';
 import { Navigate } from 'react-router';
 import { useSelector } from 'react-redux';
