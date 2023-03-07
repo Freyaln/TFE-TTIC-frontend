@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import { store } from './App';
 import { Provider } from 'react-redux';
 import IndexRouter from './components/router/Router';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { store } from './components/utils/store';
 
 const queryClient = new QueryClient({
     defaultOptions: {
