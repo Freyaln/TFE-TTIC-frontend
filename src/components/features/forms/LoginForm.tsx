@@ -24,7 +24,7 @@ const LoginForm: FC = () => {
     const onSubmit: SubmitHandler<ILoginCreds> = (data) => {
         const { email, password, remember } = data;
         dispatch(authActions({ email, password, remember }) as any);
-        navigate('/account-settings');
+        navigate('/');
     };
 
     return (

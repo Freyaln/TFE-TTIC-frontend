@@ -47,7 +47,7 @@ function IndexRouter() {
             ],
         },
         {
-            path: '/account-settings',
+            path: '/account-settings/:username',
             element: <Account />,
         },
         {
