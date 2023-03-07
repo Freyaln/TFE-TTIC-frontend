@@ -9,7 +9,7 @@ import EmailForm from '../features/forms/EmailForm';
 import DietsForm from '../features/forms/DietsForm';
 import AllergiesForm from '../features/forms/AllergiesForm';
 import { useSelector } from 'react-redux';
-import { RootState, store } from '../utils/store';
+import { RootState } from '../utils/store';
 
 interface IUnderline {
     target: string;
@@ -20,7 +20,6 @@ const Account: FC = ({}) => {
     const [underline, setUnderline] = useState<IUnderline>({ target: 'security' });
 
     const user = useSelector((state: RootState) => state.auth.user);
-    console.log(user);
     function handleSection(target: string) {
         switch (target) {
             case 'security':
@@ -63,7 +62,7 @@ const Account: FC = ({}) => {
                     fontSize="2rem"
                     sx={{ fontFamily: 'Playfair Display', textAlign: 'center', maxWidth: '60%' }}
                 >
-                    account settings
+                    {user?.username} account settings
                 </Typography>
             </header>
             <main style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '50%' }}>
