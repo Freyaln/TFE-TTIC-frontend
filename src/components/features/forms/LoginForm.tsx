@@ -1,11 +1,13 @@
 import { FC, useEffect } from 'react';
-import { Box, Button, Checkbox, Input, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Input, TextField, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../actions/auth.action';
 import { RootState } from '../../utils/store';
 import { registerAction } from '../../actions/register.action';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export interface ILoginCreds {
     email: string;
@@ -16,7 +18,18 @@ export interface ILoginCreds {
 const LoginForm: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { control, handleSubmit } = useForm({
+    const loginSchema = yup.object({
+        email: yup.string().email('Must be a valid email format').required('Please enter a valid email'),
+        password: yup.string().min(5, 'Password must be between 5 & 16 characters').max(16).required(),
+        remember: yup.boolean(),
+    });
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<ILoginCreds>({
+        reValidateMode: 'onChange',
+        resolver: yupResolver(loginSchema),
         defaultValues: {
             email: '',
             password: '',
@@ -70,7 +83,14 @@ const LoginForm: FC = () => {
                 >
                     <label style={{ fontWeight: 'bold' }}>Email</label>
                     <Controller
-                        render={({ field }) => <Input {...field} placeholder="Email..." />}
+                        render={({ field }) => (
+                            <TextField
+                                {...field}
+                                placeholder="Email..."
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
+                            />
+                        )}
                         name="email"
                         control={control}
                     />
@@ -83,14 +103,24 @@ const LoginForm: FC = () => {
                 >
                     <label style={{ fontWeight: 'bold' }}>Password</label>
                     <Controller
-                        render={({ field }) => <Input {...field} placeholder="Password..." />}
+                        render={({ field }) => (
+                            <TextField
+                                {...field}
+                                placeholder="Password..."
+                                type="password"
+                                error={!!errors.password}
+                                helperText={errors.password?.message}
+                            />
+                        )}
                         name="password"
                         control={control}
                     />
                 </div>
                 <div>
                     <Controller
-                        render={({ field }) => <Checkbox {...field} sx={{ marginRight: '0.5rem', padding: 0 }} />}
+                        render={({ field }) => (
+                            <Checkbox {...field} sx={{ marginRight: '0.5rem', padding: 0 }} value={false} />
+                        )}
                         name="remember"
                         control={control}
                     />
