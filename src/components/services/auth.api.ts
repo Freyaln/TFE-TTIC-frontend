@@ -42,4 +42,18 @@ export const authApi = {
     logout: async () => {
         clearStorageToken();
     },
+    reconnectSession: async (payload: { token: string }) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const data = {
+            token: payload.token,
+        };
+        const response = await axios.post('http://localhost:5000/auth/reconnect', data, config);
+        const { username, id, diets, allergies } = response.data;
+        const user = { username, id, diets, allergies };
+        return user;
+    },
 };

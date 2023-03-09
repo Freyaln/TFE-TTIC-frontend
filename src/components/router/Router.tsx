@@ -8,21 +8,27 @@ import Login from '../pages/Login';
 import Recovery from '../pages/Recovery';
 import Signup from '../pages/Signup';
 import App from '../../App';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { IrecipesState } from '../slices/recipesSlices';
-import Guard from '../utils/Guard';
+import { getStorageToken } from '../utils/Storage';
+import { reconnectActions } from '../actions/reconnect.action';
 
 function IndexRouter() {
     // TODO FIX THIS ERROR
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const recipes = useSelector((state: IrecipesState) => state.recipe['recipe']);
+    const dispatch = useDispatch();
+    const token = getStorageToken();
+    if (token) {
+        dispatch(reconnectActions({ token }) as any);
+    }
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Guard target={<App />} guards={['auth']} />,
+            element: token ? <App /> : <Login />,
             children: [
                 {
                     index: true,
