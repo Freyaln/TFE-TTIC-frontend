@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../utils/store';
 import changeEmail from '../../services/changeEmail.api';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
 interface IEmailFormInput {
     oldEmail: string;
@@ -26,6 +27,8 @@ const EmailForm: FC = ({}) => {
         formState: { errors },
         reset,
     } = useForm({
+        reValidateMode: 'onChange',
+        resolver: yupResolver(changeEmailSchema),
         defaultValues: {
             oldEmail: '',
             newEmail: '',

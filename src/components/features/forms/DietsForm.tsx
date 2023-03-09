@@ -1,9 +1,13 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Checkbox, Input } from '@mui/material';
+import { Box, Checkbox, Input, Typography } from '@mui/material';
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerDietsForm } from '../../slices/registerSlices';
+import { RootState } from '../../utils/store';
+import changeDiets from '../../services/changeDiets.api';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
 export interface IDietsFormInput {
     gluten_free: boolean;
@@ -13,28 +17,58 @@ export interface IDietsFormInput {
     paleo: boolean;
 }
 const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTarget }) => {
+    const [isChanged, setIsChanged] = useState<boolean>(false);
     const location = useLocation();
+    const register = location.pathname === '/account-creation';
     const dispatch = useDispatch();
-    const { control, handleSubmit } = useForm({
+    const user = useSelector((state: RootState) => state.auth.user);
+
+    const changeDietsSchema = yup.object({
+        gluten_free: yup.boolean(),
+        vegetarian: yup.boolean(),
+        vegan: yup.boolean(),
+        pescetarian: yup.boolean(),
+        paleo: yup.boolean(),
+    });
+    const {
+        control,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm({
         defaultValues: {
-            gluten_free: false,
-            vegetarian: false,
-            vegan: false,
-            pescetarian: false,
-            paleo: false,
+            reValidateMode: 'onChange',
+            resolver: yupResolver(changeDietsSchema),
+            gluten_free: !!user?.diets?.gluten_free,
+            vegetarian: !!user?.diets?.vegetarian,
+            vegan: !!user?.diets?.vegan,
+            pescetarian: !!user?.diets?.pescetarian,
+            paleo: !!user?.diets?.paleo,
         },
     });
 
     const onSubmit: SubmitHandler<IDietsFormInput> = (data) => {
-        location.pathname === '/account-creation' ? dispatch(registerDietsForm(data)) : null;
-        setTarget!('allergies');
+        if (register) {
+            dispatch(registerDietsForm(data));
+            setTarget!('allergies');
+        }
+        if (data && !register) {
+            changeDiets(user!.id, data).then((res) => {
+                if (res === 200) {
+                    setIsChanged(true);
+                    reset();
+                }
+            });
+        } else {
+            console.log("Diets aren't so good after all eh");
+        }
     };
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             style={
-                location.pathname === '/account-creation'
+                register
                     ? {
                           display: 'flex',
                           flexDirection: 'column',
@@ -51,23 +85,43 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
             }
         >
             <div>
-                <Controller render={({ field }) => <Checkbox {...field} />} name="gluten_free" control={control} />
+                <Controller
+                    render={({ field }) => <Checkbox {...field} checked={field.value} onChange={field.onChange} />}
+                    name="gluten_free"
+                    control={control}
+                />
                 <label>Gluten free</label>
             </div>
             <div>
-                <Controller render={({ field }) => <Checkbox {...field} />} name="vegetarian" control={control} />
+                <Controller
+                    render={({ field }) => <Checkbox {...field} checked={field.value} onChange={field.onChange} />}
+                    name="vegetarian"
+                    control={control}
+                />
                 <label>Vegetarian</label>
             </div>
             <div>
-                <Controller render={({ field }) => <Checkbox {...field} />} name="vegan" control={control} />
+                <Controller
+                    render={({ field }) => <Checkbox {...field} checked={field.value} onChange={field.onChange} />}
+                    name="vegan"
+                    control={control}
+                />
                 <label>Vegan</label>
             </div>
             <div>
-                <Controller render={({ field }) => <Checkbox {...field} />} name="pescetarian" control={control} />
+                <Controller
+                    render={({ field }) => <Checkbox {...field} checked={field.value} onChange={field.onChange} />}
+                    name="pescetarian"
+                    control={control}
+                />
                 <label>Pescetarian</label>
             </div>
             <div>
-                <Controller render={({ field }) => <Checkbox {...field} />} name="paleo" control={control} />
+                <Controller
+                    render={({ field }) => <Checkbox {...field} checked={field.value} onChange={field.onChange} />}
+                    name="paleo"
+                    control={control}
+                />
                 <label>Paleo</label>
             </div>
             <Input
@@ -83,6 +137,19 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
                     '::before': { border: 'none' },
                 }}
             />
+            <Box sx={isChanged ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                <Typography
+                    variant={'h6'}
+                    sx={{
+                        color: 'green',
+                        fontFamily: 'Playfair Display',
+                        fontWeight: 'bolder',
+                        textAlign: 'center',
+                    }}
+                >
+                    Diets changed !
+                </Typography>
+            </Box>
         </form>
     );
 };
