@@ -1,6 +1,10 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Input } from '@mui/material';
+import { Box, Input, TextField, Typography } from '@mui/material';
+import * as yup from 'yup';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../utils/store';
+import changeEmail from '../../services/changeEmail.api';
 
 interface IEmailFormInput {
     oldEmail: string;
@@ -9,7 +13,19 @@ interface IEmailFormInput {
 }
 
 const EmailForm: FC = ({}) => {
-    const { control, handleSubmit } = useForm({
+    const [isChanged, setIsChanged] = useState<boolean>(false);
+    const user = useSelector((state: RootState) => state.auth.user);
+    const changeEmailSchema = yup.object({
+        oldEmail: yup.string().email().required('Please enter a valid email'),
+        newEmail: yup.string().email().required('Please enter a valid email'),
+        confirmNewEmail: yup.string().email().required('Please enter a valid email'),
+    });
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm({
         defaultValues: {
             oldEmail: '',
             newEmail: '',
@@ -17,8 +33,18 @@ const EmailForm: FC = ({}) => {
         },
     });
 
-    const onSubmit: SubmitHandler<IEmailFormInput> = (data) => {
-        console.log(data);
+    const onSubmit: SubmitHandler<IEmailFormInput> = async (data) => {
+        const { oldEmail, newEmail, confirmNewEmail } = data;
+        if (newEmail === confirmNewEmail) {
+            changeEmail(user!.id, newEmail).then((res) => {
+                if (res === 200) {
+                    setIsChanged(true);
+                    reset();
+                }
+            });
+        } else {
+            console.log("User with this email doesn't exist");
+        }
     };
 
     return (
@@ -36,7 +62,15 @@ const EmailForm: FC = ({}) => {
             <div>
                 <label>Old email</label>
                 <Controller
-                    render={({ field }) => <Input {...field} sx={{ width: '75%' }} placeholder="Old email..." />}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            sx={{ width: '75%' }}
+                            placeholder="Old email..."
+                            error={!!errors.oldEmail}
+                            helperText={errors.oldEmail?.message}
+                        />
+                    )}
                     name="oldEmail"
                     control={control}
                 />
@@ -44,7 +78,15 @@ const EmailForm: FC = ({}) => {
             <div>
                 <label>New email</label>
                 <Controller
-                    render={({ field }) => <Input {...field} sx={{ width: '75%' }} placeholder="New email..." />}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            sx={{ width: '75%' }}
+                            placeholder="New email..."
+                            error={!!errors.newEmail}
+                            helperText={errors.newEmail?.message}
+                        />
+                    )}
                     name="newEmail"
                     control={control}
                 />
@@ -52,7 +94,15 @@ const EmailForm: FC = ({}) => {
             <div>
                 <label>Confirm email</label>
                 <Controller
-                    render={({ field }) => <Input {...field} sx={{ width: '75%' }} placeholder="Confirm email..." />}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            sx={{ width: '75%' }}
+                            placeholder="Confirm email..."
+                            error={!!errors.confirmNewEmail}
+                            helperText={errors.confirmNewEmail?.message}
+                        />
+                    )}
                     name="confirmNewEmail"
                     control={control}
                 />
@@ -70,6 +120,20 @@ const EmailForm: FC = ({}) => {
                     '::before': { border: 'none' },
                 }}
             />
+
+            <Box sx={isChanged ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                <Typography
+                    variant={'h6'}
+                    sx={{
+                        color: 'green',
+                        fontFamily: 'Playfair Display',
+                        fontWeight: 'bolder',
+                        textAlign: 'center',
+                    }}
+                >
+                    Email changed !
+                </Typography>
+            </Box>
         </form>
     );
 };
