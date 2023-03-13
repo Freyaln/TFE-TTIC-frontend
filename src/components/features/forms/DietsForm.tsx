@@ -19,7 +19,7 @@ export interface IDietsFormInput {
 const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTarget }) => {
     const [isChanged, setIsChanged] = useState<boolean>(false);
     const location = useLocation();
-    const register = location.pathname === '/account-creation';
+    const signupPage = location.pathname === '/account-creation';
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.auth.user);
 
@@ -48,11 +48,11 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
     });
 
     const onSubmit: SubmitHandler<IDietsFormInput> = (data) => {
-        if (register) {
+        if (signupPage) {
             dispatch(registerDietsForm(data));
             setTarget!('allergies');
         }
-        if (data && !register) {
+        if (data && !signupPage) {
             changeDiets(user!.id, data).then((res) => {
                 if (res === 200) {
                     setIsChanged(true);
@@ -68,7 +68,7 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
         <form
             onSubmit={handleSubmit(onSubmit)}
             style={
-                register
+                signupPage
                     ? {
                           display: 'flex',
                           flexDirection: 'column',
