@@ -11,20 +11,21 @@ import App from '../../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider } from 'react-router';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
-import { IrecipesState } from '../slices/recipesSlices';
 import { getStorageToken } from '../utils/Storage';
 import { reconnectActions } from '../actions/reconnect.action';
+import { useEffect } from 'react';
+import { RootState } from '../utils/store';
 
 function IndexRouter() {
-    // TODO FIX THIS ERROR
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const recipes = useSelector((state: IrecipesState) => state.recipe['recipe']);
+    const recipes = useSelector((state: RootState) => state.recipe.filteredRecipes);
     const dispatch = useDispatch();
     const token = getStorageToken();
-    if (token) {
-        dispatch(reconnectActions({ token }) as any);
-    }
+    useEffect(() => {
+        if (token) {
+            dispatch(reconnectActions({ token }) as any);
+        }
+    }, [token]);
+
     const router = createBrowserRouter([
         {
             path: '/',
@@ -37,7 +38,7 @@ function IndexRouter() {
                 {
                     path: 'recipe/:title',
                     loader: async ({ params }) => {
-                        const recipe = recipes.find((i: Irecipes) => i.title.toString() === params.title);
+                        const recipe = recipes!.find((i: Irecipes) => i.title.toString() === params.title);
                         if (recipe) {
                             return recipe;
                         } else {

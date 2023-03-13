@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { Box, Button, Checkbox, Input, TextField, Typography } from '@mui/material';
+import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,8 +37,8 @@ const LoginForm: FC = () => {
         },
     });
     const { credentialForm, dietsForm, allergiesForm } = useSelector((state: RootState) => state.register.forms);
-    const onSubmit: SubmitHandler<ILoginCreds> = (data) => {
-        const { email, password, remember } = data;
+    const onSubmit: SubmitHandler<ILoginCreds> = (credentials) => {
+        const { email, password, remember } = credentials;
         dispatch(authActions({ email, password, remember }) as any);
         navigate('/');
     };
