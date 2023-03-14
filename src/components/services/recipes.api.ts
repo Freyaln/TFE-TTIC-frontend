@@ -13,22 +13,32 @@ export async function getRandomRecipe(): Promise<Irecipes[]> {
 export const recipesApi = {
     fetchFiltered: async (user: IUser) => {
         const userDiets = user?.diets || {};
+        const userAllergies = user?.allergies || {};
         const activeDiets = Object.entries(userDiets).filter(([key, value]) => value);
-        if (activeDiets.length === 0) {
-            throw new Error('No diets found');
-        }
+        const activeAllergies = Object.entries(userAllergies).filter(([key, value]) => value);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
             },
         };
-        const diets = activeDiets.map(([key]) => key).join('|');
-        const response = await axios.get(`${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&&number=50`, config);
-        return response.data.results;
+        if (activeDiets.length === 0) {
+            throw new Error('No diets found');
+        } else {
+            const diets = activeDiets.map(([key]) => key).join('|');
+            const response = await axios.get(
+                `${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&number=50`,
+                config,
+            );
+            return response.data.results;
+        }
     },
 
     fetchRandom: async () => {
         const response = await axios.get(`${URL}recipes/random?apiKey=${KEY}&number=50`);
+        return response.data.results;
+    },
+    fetchSearched: async (query: string) => {
+        const response = await axios.get(`${URL}recipes/complexSearch?apiKey=${KEY}&number=10&query=${query}`);
         return response.data.results;
     },
 };

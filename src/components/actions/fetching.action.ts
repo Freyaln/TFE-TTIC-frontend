@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchingStart, fetchingFailure, filteredRecipes, randomRecipes } from '../slices/recipesSlices';
+import { fetchingStart, fetchingFailure, filteredRecipes, randomRecipes, searchRecipes } from '../slices/recipesSlices';
 import { recipesApi } from '../services/recipes.api';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { IUser } from '../services/auth.api';
@@ -30,3 +30,18 @@ export const fetchingRandomActions = createAsyncThunk('fetch', async (payload: n
         return rejectWithValue(message);
     }
 });
+
+export const fetchingSearchedQuery = createAsyncThunk(
+    'fetch',
+    async (payload: string, { dispatch, rejectWithValue }) => {
+        try {
+            dispatch(fetchingStart());
+            const data: Irecipes[] = await recipesApi.fetchSearched(payload);
+            dispatch(searchRecipes(data));
+        } catch (error: any) {
+            const message = error.response?.data?.message || 'Something went wrong';
+            dispatch(fetchingFailure({ message }));
+            return rejectWithValue(message);
+        }
+    },
+);

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { IAuthErrorPayload } from './authSlices';
-import { IUser } from '../services/auth.api';
 export interface IrecipesState {
     randomRecipes: Irecipes[] | null;
     filteredRecipes: Irecipes[] | null;
+    searchRecipes: Irecipes[] | null;
     isLoading: boolean;
     error: string | null;
 }
@@ -12,6 +12,7 @@ export interface IrecipesState {
 const initialState: IrecipesState = {
     randomRecipes: null,
     filteredRecipes: null,
+    searchRecipes: null,
     isLoading: false,
     error: null,
 };
@@ -34,6 +35,11 @@ export const recipesSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         },
+        searchRecipes: (state, action: PayloadAction<Irecipes[]>) => {
+            state.searchRecipes = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        },
         fetchingFailure: (state, action: PayloadAction<IAuthErrorPayload>) => {
             state.error = action.payload.message;
             state.isLoading = false;
@@ -41,5 +47,5 @@ export const recipesSlice = createSlice({
     },
 });
 
-export const { fetchingStart, randomRecipes, filteredRecipes, fetchingFailure } = recipesSlice.actions;
+export const { fetchingStart, randomRecipes, filteredRecipes, searchRecipes, fetchingFailure } = recipesSlice.actions;
 export const recipeReducer = recipesSlice.reducer;
