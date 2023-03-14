@@ -1,17 +1,16 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import MainList from '../features/MainList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../utils/store';
-import { fetchingRandomActions, fetchingUserFilteredActions } from '../actions/userFilteredRecipes.action';
+import { fetchingUserFilteredActions } from '../actions/fetching.action';
 
-const HomePage: FC = ({}) => {
+const HomePage: FC = () => {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.auth.user);
-    if (user) {
-        dispatch(fetchingUserFilteredActions(user) as any);
-    } else {
-        dispatch(fetchingRandomActions(null) as any);
-    }
+    useEffect(() => {
+        dispatch(fetchingUserFilteredActions(user!) as any);
+    }, [user]);
+
     return (
         <>
             <MainList />
