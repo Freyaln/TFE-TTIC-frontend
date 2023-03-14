@@ -35,7 +35,6 @@ export const registerApi = {
             },
             config,
         );
-        console.log(response);
         return response;
     },
 };

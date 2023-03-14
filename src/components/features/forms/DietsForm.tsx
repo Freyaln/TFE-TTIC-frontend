@@ -8,6 +8,7 @@ import { RootState } from '../../utils/store';
 import changeDiets from '../../services/changeDiets.api';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { updateDietsAction } from '../../actions/update.action';
 
 export interface IDietsFormInput {
     gluten_free: boolean;
@@ -55,6 +56,7 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
         if (data && !signupPage) {
             changeDiets(user!.id, data).then((res) => {
                 if (res === 200) {
+                    dispatch(updateDietsAction({ user: user!.id, diets: data }) as any);
                     setIsChanged(true);
                     reset();
                 }

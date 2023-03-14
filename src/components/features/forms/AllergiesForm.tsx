@@ -4,6 +4,8 @@ import { Checkbox, Input } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerAllergiesForm } from '../../slices/registerSlices';
+import { updateAllergiesAction } from '../../actions/update.action';
+import { RootState } from '../../utils/store';
 
 export interface IAllergiesFormInput {
     dairy: boolean;
@@ -23,6 +25,7 @@ const AllergiesForm: FC = ({}) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.auth.user);
     const { control, handleSubmit } = useForm({
         defaultValues: {
             dairy: false,
@@ -41,7 +44,9 @@ const AllergiesForm: FC = ({}) => {
     });
 
     const onSubmit: SubmitHandler<IAllergiesFormInput> = (data) => {
-        location.pathname === '/account-creation' ? dispatch(registerAllergiesForm(data)) : null;
+        location.pathname === '/account-creation'
+            ? dispatch(registerAllergiesForm(data))
+            : dispatch(updateAllergiesAction({ user: user!.id, allergies: data }) as any);
         navigate('/login');
     };
 
