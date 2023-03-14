@@ -8,16 +8,16 @@ import Login from '../pages/Login';
 import Recovery from '../pages/Recovery';
 import Signup from '../pages/Signup';
 import App from '../../App';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouterProvider } from 'react-router';
-import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { getStorageToken } from '../utils/Storage';
 import { reconnectActions } from '../actions/reconnect.action';
 import { useEffect } from 'react';
-import { RootState } from '../utils/store';
+import axios from 'axios';
 
 function IndexRouter() {
-    const recipes = useSelector((state: RootState) => state.recipe.filteredRecipes);
+    const KEY = process.env.REACT_APP_API_KEY;
+    const URL = process.env.REACT_APP_API_URL;
     const dispatch = useDispatch();
     const token = getStorageToken();
     useEffect(() => {
@@ -36,11 +36,12 @@ function IndexRouter() {
                     element: <HomePage />,
                 },
                 {
-                    path: 'recipe/:title',
+                    path: 'recipe/:id/:title',
                     loader: async ({ params }) => {
-                        const recipe = recipes!.find((i: Irecipes) => i.title.toString() === params.title);
+                        const recipe = await axios.get(`${URL}recipes/${params.id}/information?apiKey=${KEY}`);
                         if (recipe) {
-                            return recipe;
+                            console.log(recipe.data);
+                            return recipe.data;
                         } else {
                             throw new Error(`Photo with title ${params.title} not found`);
                         }
