@@ -1,10 +1,8 @@
 import { ChangeEvent, FC } from 'react';
-
 export interface ISearchBarProps {
     inputClass: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => any;
 }
-
 const SearchBar: FC<ISearchBarProps> = ({ inputClass, onChange }) => {
     return (
         <div

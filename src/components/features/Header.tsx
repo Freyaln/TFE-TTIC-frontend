@@ -1,18 +1,25 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Sidebar from './menu/Sidebar';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import ListItem from '@mui/material/ListItem';
 import Searchbar from './Searchbar';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchingSearchedQuery } from '../actions/fetching.action';
 
 const Header: FC = ({}) => {
-    const [searchDatas, setSearchDatas] = useState<string>('');
-    const handleSearchInput = (value: string) => {
-        value ? setSearchDatas(value) : setSearchDatas('');
+    const [query, setQuery] = useState<string | null>(null);
+    const dispatch = useDispatch();
+
+    const handleSearchInput = (query: string) => {
+        setQuery(query);
     };
+
+    useEffect(() => {
+        query != null ? dispatch(fetchingSearchedQuery(query) as any) : '';
+    }, [query]);
 
     return (
         <Box sx={{ height: '7.5%' }}>
