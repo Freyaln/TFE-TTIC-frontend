@@ -41,4 +41,14 @@ export const recipesApi = {
         const response = await axios.get(`${URL}recipes/complexSearch?apiKey=${KEY}&number=10&query=${query}`);
         return response.data.results;
     },
+    fetchFavRecipes: async (id: string) => {
+        const recipe = await axios.get(`${URL}recipes/${id}/information?apiKey=${KEY}`);
+
+        if (recipe) {
+            console.log(recipe.data);
+            return recipe.data;
+        } else {
+            throw new Error(`recipe not found`);
+        }
+    },
 };

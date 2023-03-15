@@ -94,7 +94,6 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
 
     useEffect(() => {
         reset({ ...formDefaultValue });
-        console.log(user!.diets!, formDefaultValue);
     }, [user, formDefaultValue]);
 
     return (

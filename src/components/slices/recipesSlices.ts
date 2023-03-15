@@ -5,6 +5,7 @@ export interface IrecipesState {
     randomRecipes: Irecipes[] | null;
     filteredRecipes: Irecipes[] | null;
     searchRecipes: Irecipes[] | null;
+    favRecipes: Irecipes[] | null;
     isLoading: boolean;
     error: string | null;
 }
@@ -13,6 +14,7 @@ const initialState: IrecipesState = {
     randomRecipes: null,
     filteredRecipes: null,
     searchRecipes: null,
+    favRecipes: null,
     isLoading: false,
     error: null,
 };
@@ -40,6 +42,11 @@ export const recipesSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         },
+        favRecipes: (state, action: PayloadAction<Irecipes[]>) => {
+            state.favRecipes = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        },
         fetchingFailure: (state, action: PayloadAction<IAuthErrorPayload>) => {
             state.error = action.payload.message;
             state.isLoading = false;
@@ -47,5 +54,6 @@ export const recipesSlice = createSlice({
     },
 });
 
-export const { fetchingStart, randomRecipes, filteredRecipes, searchRecipes, fetchingFailure } = recipesSlice.actions;
+export const { fetchingStart, randomRecipes, filteredRecipes, searchRecipes, favRecipes, fetchingFailure } =
+    recipesSlice.actions;
 export const recipeReducer = recipesSlice.reducer;

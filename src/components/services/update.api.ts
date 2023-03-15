@@ -8,6 +8,11 @@ export interface IupdatePayload {
     allergies?: IAllergiesFormInput;
 }
 
+export interface IupdateFavRecipesPayload {
+    userId: string;
+    recipeId: string;
+}
+
 export const updateApi = {
     updateDiets: async (payload: IupdatePayload) => {
         const config = {
@@ -45,5 +50,22 @@ export const updateApi = {
             config,
         );
         return response;
+    },
+    addFavRecipes: async (payload: IupdateFavRecipesPayload) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const data = {
+            userId: payload.userId,
+            recipeId: payload.userId,
+        };
+        const response = await axios.post(
+            'http://localhost:5000/recipe/add',
+            { id: data.userId, diets: data.userId },
+            config,
+        );
+        return response.data;
     },
 };

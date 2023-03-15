@@ -6,6 +6,7 @@ import { IAllergiesFormInput } from '../features/forms/AllergiesForm';
 export interface IUpdateState {
     dietsForm: IDietsFormInput | null;
     allergiesForm: IAllergiesFormInput | null;
+    favRecipes: string[] | string | null;
     areFormsComplete: boolean;
     isupdate: boolean;
     isLoading: boolean;
@@ -15,6 +16,7 @@ export interface IUpdateState {
 const initialState: IUpdateState = {
     dietsForm: null,
     allergiesForm: null,
+    favRecipes: null,
     areFormsComplete: false,
     isupdate: false,
     isLoading: false,
@@ -39,6 +41,11 @@ const updateSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         },
+        updateFavRecipes(state, action: PayloadAction<string | string[]>) {
+            state.favRecipes = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        },
         updateSuccess: (state) => {
             state.isLoading = false;
         },
@@ -49,6 +56,7 @@ const updateSlice = createSlice({
     },
 });
 
-export const { updateStart, updateDietsForm, updateAllergiesForm, updateFailure, updateSuccess } = updateSlice.actions;
+export const { updateStart, updateDietsForm, updateAllergiesForm, updateFavRecipes, updateFailure, updateSuccess } =
+    updateSlice.actions;
 
 export const updateReducer = updateSlice.reducer;

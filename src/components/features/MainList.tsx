@@ -1,9 +1,12 @@
-import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import { Box, Icon, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { RootState } from '../utils/store';
 import { useEffect, useState } from 'react';
+import { Image } from '@mui/icons-material';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 const HomeList: React.FC = ({}) => {
     const [recipes, setRecipes] = useState<Irecipes[] | null>([]);
@@ -41,6 +44,11 @@ const HomeList: React.FC = ({}) => {
                             <ImageListItem key={i.id}>
                                 <Link to={`/recipe/${i.id}/${i.title}`}>
                                     <img src={`${i.image}?w=300&fit=crop&auto=format`} alt={i.title} loading="lazy" />
+                                    <ListItemIcon
+                                        sx={{ position: 'absolute', top: 10, right: 0, zIndex: 10, color: 'yellow' }}
+                                    >
+                                        <StarOutlineIcon />
+                                    </ListItemIcon>
                                 </Link>
                                 <ImageListItemBar title={i.title} sx={{ fontSize: '0.75rem' }}></ImageListItemBar>
                             </ImageListItem>
