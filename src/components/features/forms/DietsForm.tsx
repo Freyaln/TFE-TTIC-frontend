@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Checkbox, Input, Typography } from '@mui/material';
 import { useLocation } from 'react-router';
@@ -18,11 +18,18 @@ export interface IDietsFormInput {
     paleo: boolean;
 }
 const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTarget }) => {
+    const user = useSelector((state: RootState) => state.auth.user);
     const [isChanged, setIsChanged] = useState<boolean>(false);
+    const [formDefaultValue, setFormDefaultValue] = useState({
+        gluten_free: !!user?.diets?.gluten_free,
+        vegetarian: !!user?.diets?.vegetarian,
+        vegan: !!user?.diets?.vegan,
+        pescetarian: !!user?.diets?.pescetarian,
+        paleo: !!user?.diets?.paleo,
+    });
     const location = useLocation();
     const signupPage = location.pathname === '/account-creation';
     const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.auth.user);
 
     const changeDietsSchema = yup.object({
         gluten_free: yup.boolean(),
@@ -40,11 +47,11 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
         defaultValues: {
             reValidateMode: 'onChange',
             resolver: yupResolver(changeDietsSchema),
-            gluten_free: !!user?.diets?.gluten_free,
-            vegetarian: !!user?.diets?.vegetarian,
-            vegan: !!user?.diets?.vegan,
-            pescetarian: !!user?.diets?.pescetarian,
-            paleo: !!user?.diets?.paleo,
+            gluten_free: formDefaultValue.gluten_free,
+            vegetarian: formDefaultValue.vegetarian,
+            vegan: formDefaultValue.vegan,
+            pescetarian: formDefaultValue.pescetarian,
+            paleo: formDefaultValue.paleo,
         },
     });
 
@@ -56,15 +63,39 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
         if (data && !signupPage) {
             changeDiets(user!.id, data).then((res) => {
                 if (res === 200) {
-                    dispatch(updateDietsAction({ user: user!.id, diets: data }) as any);
+                    const { gluten_free, vegetarian, vegan, pescetarian, paleo } = data;
+                    dispatch(
+                        updateDietsAction({
+                            user: user!.id,
+                            diets: {
+                                gluten_free: gluten_free,
+                                vegetarian: vegetarian,
+                                vegan: vegan,
+                                pescetarian: pescetarian,
+                                paleo: paleo,
+                            },
+                        }) as any,
+                    );
+                    setFormDefaultValue({
+                        ...formDefaultValue,
+                        gluten_free: gluten_free,
+                        vegetarian: vegetarian,
+                        vegan: vegan,
+                        pescetarian: pescetarian,
+                        paleo: paleo,
+                    });
                     setIsChanged(true);
-                    reset();
                 }
             });
         } else {
             console.log("Diets aren't so good after all eh");
         }
     };
+
+    useEffect(() => {
+        reset({ ...formDefaultValue });
+        console.log(user!.diets!, formDefaultValue);
+    }, [user, formDefaultValue]);
 
     return (
         <form

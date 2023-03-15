@@ -24,7 +24,7 @@ export const updateApi = {
             { id: data.id, diets: data.diets },
             config,
         );
-        return response.status;
+        return response.data;
     },
     updateAllergies: async (payload: IupdatePayload) => {
         const config = {

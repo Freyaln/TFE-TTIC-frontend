@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updateFailure, updateStart } from '../slices/updates.slices';
+import { updateFailure, updateStart, updateDietsForm } from '../slices/updates.slices';
 import { IupdatePayload, updateApi } from '../services/update.api';
+import { authApi } from '../services/auth.api';
+import { updateUser } from '../slices/authSlices';
 
 export const updateDietsAction = createAsyncThunk(
     'update',
@@ -8,8 +10,9 @@ export const updateDietsAction = createAsyncThunk(
         try {
             dispatch(updateStart());
             const updatedDiets = await updateApi.updateDiets(payload);
-            console.log(updatedDiets);
-            //dispatch(updateDietsForm(updatedDiets));
+            dispatch(updateDietsForm(updatedDiets));
+            const updateUserInformations = await authApi.updateUserInfo(payload.user);
+            dispatch(updateUser(updateUserInformations));
         } catch (error: any) {
             const message = error.response?.data?.message || 'Something went wrong';
             dispatch(updateFailure(message));

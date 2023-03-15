@@ -56,4 +56,18 @@ export const authApi = {
         const user = { username, id, diets, allergies };
         return user;
     },
+    updateUserInfo: async (payload: string) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const data = {
+            id: payload,
+        };
+        const response = await axios.post('http://localhost:5000/auth/updateuser', data, config);
+        const { username, id, diets, allergies } = response.data;
+        const user = { username, id, diets, allergies };
+        return user;
+    },
 };

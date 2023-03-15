@@ -4,6 +4,7 @@ import { IUser } from '../services/auth.api';
 export interface IAuthState {
     user: IUser | null;
     isAuthenticated: boolean;
+    isUpdated: boolean;
     isLoading: boolean;
     error: string | null;
 }
@@ -15,6 +16,7 @@ export interface IAuthErrorPayload {
 const initialState: IAuthState = {
     user: null,
     isAuthenticated: false,
+    isUpdated: false,
     isLoading: false,
     error: null,
 };
@@ -41,8 +43,14 @@ const authSlice = createSlice({
             state.user = null;
             state.isAuthenticated = false;
         },
+        updateUser: (state, action: PayloadAction<IUser>) => {
+            state.user = action.payload;
+            state.isUpdated = true;
+            state.isLoading = false;
+            state.error = null;
+        },
     },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, updateUser } = authSlice.actions;
 export const authReducer = authSlice.reducer;
