@@ -60,6 +60,36 @@ code {
   gap: 1rem;
 }
 
+.container-flex-row-fend-fixed {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #EBDDCD !important;
+  z-index: 1000;
+}
+
+.container-flex-row-sbetween-h60 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  width: 100%;
+  margin-top: 60px;
+  background-color: rgba(152,118,84,0.5) !important;
+}
+
+.container-flex-row-fend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .container-flex-fstart-h60 {
   display: flex;
   justify-content: center;
@@ -98,6 +128,11 @@ code {
 
 .container-h100 {
   height: 100%;
+}
+
+.container-w80-center {
+  width: 80%;
+  text-align: center;
 }
 
 .container-visible {

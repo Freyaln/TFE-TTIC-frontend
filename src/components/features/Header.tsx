@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import '../../index.css';
 import { Box, Typography } from '@mui/material';
 import Sidebar from './menu/Sidebar';
 import List from '@mui/material/List';
@@ -23,25 +24,9 @@ const Header: FC = ({}) => {
 
     return (
         <Box sx={{ height: '7.5%' }}>
-            <header
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-end',
-                    position: 'fixed',
-                    top: 0,
-                    width: '100%',
-                    backgroundColor: '#EBDDCD',
-                    zIndex: 1000,
-                }}
-            >
-                <div style={{ width: '80%', textAlign: 'center' }}>
-                    <Typography
-                        variant="h1"
-                        fontSize="2rem"
-                        sx={{ fontFamily: 'Playfair Display', fontWeight: 'bolder' }}
-                    >
+            <header className="container-flex-row-fend-fixed">
+                <div className="container-w80-center">
+                    <Typography variant="h1" fontSize="2rem" className="title-pf-bolder">
                         [APPNAME]
                     </Typography>
                 </div>
@@ -49,19 +34,8 @@ const Header: FC = ({}) => {
                     <Sidebar />
                 </div>
             </header>
-            <section
-                style={{
-                    backgroundColor: 'rgba(152,118,84,0.5)',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    height: 60,
-                    width: '100%',
-                    marginTop: 60,
-                }}
-            >
-                <List sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }}>
+            <section className="container-flex-row-sbetween-h60">
+                <List className="container-flex-row-fend">
                     <ListItem>
                         <Link to="/">
                             <ListItemText
