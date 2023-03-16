@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import '../../../index.css';
 import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
@@ -50,38 +51,15 @@ const LoginForm: FC = () => {
     }, []);
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%',
-            }}
-        >
-            <Box sx={{ position: 'absolute', top: '10%' }}>
-                <Typography variant="h1" fontSize="2rem" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bolder' }}>
+        <Box className="container-flex-col-center">
+            <Box className="container-absolute-t10">
+                <Typography variant="h1" fontSize="2rem" className="title-pf-bolder">
                     [APPNAME]
                 </Typography>
             </Box>
-            <form
-                method="POST"
-                onSubmit={handleSubmit(onSubmit)}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
-                    gap: '1rem',
-                }}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <label style={{ fontWeight: 'bold' }}>Email</label>
+            <form method="POST" onSubmit={handleSubmit(onSubmit)} className="container-flex-col-fstart">
+                <div className="container-flex-col">
+                    <label className="bold">Email</label>
                     <Controller
                         render={({ field }) => (
                             <TextField
@@ -95,13 +73,8 @@ const LoginForm: FC = () => {
                         control={control}
                     />
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <label style={{ fontWeight: 'bold' }}>Password</label>
+                <div className="container-flex-col">
+                    <label className="bold">Password</label>
                     <Controller
                         render={({ field }) => (
                             <TextField
@@ -118,49 +91,26 @@ const LoginForm: FC = () => {
                 </div>
                 <div>
                     <Controller
-                        render={({ field }) => (
-                            <Checkbox {...field} sx={{ marginRight: '0.5rem', padding: 0 }} value={false} />
-                        )}
+                        render={({ field }) => <Checkbox {...field} className="checkboxes-mr-p" value={false} />}
                         name="remember"
                         control={control}
                     />
-                    <label style={{ fontSize: '0.85rem' }}>Remember me</label>
+                    <label className="text-small">Remember me</label>
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <Typography variant="subtitle2" fontSize="0.60rem" sx={{ fontFamily: 'Playfair Display' }}>
+                <div className="container-flex-col">
+                    <Typography variant="subtitle2" fontSize="0.60rem" className="subtitle-pf">
                         Forgot your password ?
                     </Typography>
-                    <Button
-                        type="submit"
-                        fullWidth={true}
-                        sx={{
-                            backgroundColor: '#906942',
-                            color: '#FFF',
-                            fontFamily: 'Playfair Display',
-                        }}
-                    >
+                    <Button type="submit" fullWidth={true} className="button-brown-pf">
                         Login
                     </Button>
                 </div>
             </form>
-            <Box sx={{ position: 'absolute', bottom: '15%' }}>
-                <Typography variant="subtitle2" sx={{ fontFamily: 'Playfair Display' }}>
+            <Box className="container-absolute-b15">
+                <Typography variant="subtitle2" className="subtitle-pf">
                     Don`&apos;t have an account yet ?
                 </Typography>
-                <Button
-                    href="/account-creation"
-                    sx={{
-                        backgroundColor: '#906942',
-                        color: '#FFF',
-                        width: '7.5rem',
-                        fontFamily: 'Playfair Display',
-                    }}
-                >
+                <Button href="/account-creation" className="button-brown-pf-large">
                     Create it
                 </Button>
             </Box>
