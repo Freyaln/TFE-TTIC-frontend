@@ -55,7 +55,7 @@ export const fetchingSearchedQuery = createAsyncThunk(
 
 export const fetchingSavedRecipes = createAsyncThunk(
     'fetch',
-    async (payload: string, { dispatch, rejectWithValue }) => {
+    async (payload: string[] | string, { dispatch, rejectWithValue }) => {
         try {
             dispatch(fetchingStart());
             const data: Irecipes[] = await recipesApi.fetchFavRecipes(payload);
