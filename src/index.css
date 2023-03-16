@@ -34,12 +34,51 @@ code {
   height: 100%;
 }
 
+.container-flex-h40 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+}
+
+.container-flex-col-center-mh30-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 30rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.container-flex-col-space-mh30-wrap {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: center;
+  max-height: 30rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.container-flex-fstart-h60 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 60%;
+}
+
 .container-flex-col-fstart {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 1rem;
+}
+
+.container-flex-col-stretch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .container-flex-col {
@@ -57,11 +96,29 @@ code {
   bottom: 15%;
 }
 
+.container-h100 {
+  height: 100%;
+}
+
+.container-visible {
+  visibility: visible;
+}
+
+.container-invisible {
+  visibility: hidden;
+}
+
 /* TEXT */
 
 .title-pf-bolder {
   font-family: 'Playfair Display', serif !important;
   font-weight: bolder !important;
+}
+
+.title-pf-bolder-center {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: bolder !important;
+  text-align: center;
 }
 
 .subtitle-pf {
@@ -76,6 +133,13 @@ code {
   font-weight: bold;
 }
 
+.form-submitted {
+  color: green !important;
+  font-family: 'Playfair Display', serif !important;
+  font-weight: bolder;
+  text-align: center;
+}
+
 /* LINKS */
 
 a {
@@ -83,11 +147,15 @@ a {
   color: black;
 }
 
-/* CHECKBOXES */
+/* INPUTS */
 
 .checkboxes-mr-p {
   margin-right: 0.85rem;
   padding: 0 !important;
+}
+
+.input-w100 {
+  width: 100%;
 }
 
 /* BUTTONS */
@@ -96,6 +164,20 @@ a {
   background-color: #906942 !important;
   color: #FFF !important;
   font-family: 'Playfair Display', serif !important;
+}
+
+.button-brown-pf-round {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: bold !important;
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+  background-color: #906942 !important;
+  color: #FFF !important;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-brown-pf-round::before {
+  border: none !important;
 }
 
 .button-brown-pf-large {

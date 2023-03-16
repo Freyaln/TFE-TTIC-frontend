@@ -1,4 +1,5 @@
 import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import '../../../index.css';
 import { Box, Input } from '@mui/material';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -33,70 +34,40 @@ const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ set
     };
     return (
         <Box>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
-                    gap: '1rem',
-                    marginLeft: '10%',
-                }}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+            <form onSubmit={handleSubmit(onSubmit)} className="container-flex-col-fstart">
+                <div className="container-flex-col">
                     <label>Email</label>
                     <Controller
-                        render={({ field }) => <Input {...field} sx={{ width: '100%' }} placeholder="Email..." />}
+                        render={({ field }) => <Input {...field} className="input-w100" placeholder="Email..." />}
                         name="email"
                         control={control}
                     />
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <div className="container-flex-col">
                     <label>Username</label>
                     <Controller
-                        render={({ field }) => <Input {...field} sx={{ width: '100%' }} placeholder="Username" />}
+                        render={({ field }) => <Input {...field} className="input-w100" placeholder="Username" />}
                         name="username"
                         control={control}
                     />
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <div className="container-flex-col">
                     <label>Password</label>
                     <Controller
                         render={({ field }) => (
-                            <Input {...field} sx={{ width: '100%' }} placeholder="Password..." type="password" />
+                            <Input {...field} className="input-w100" placeholder="Password..." type="password" />
                         )}
                         name="password"
                         control={control}
                     />
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <div className="container-flex-col">
                     <label style={formIsValid != false ? {} : { color: 'red' }}>Confirm password</label>
                     <Controller
                         render={({ field }) => (
                             <Input
                                 {...field}
-                                sx={{ width: '100%' }}
+                                className="input-w100"
                                 placeholder="Confirm password..."
                                 type="password"
                             />
@@ -105,19 +76,7 @@ const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ set
                         control={control}
                     />
                 </div>
-                <Input
-                    type="submit"
-                    sx={{
-                        fontFamily: 'Playfair Display',
-                        fontWeight: 'bold',
-                        padding: '0.25rem 0.75rem 0.25rem 0.75rem',
-                        backgroundColor: '#906942',
-                        borderRadius: '5px',
-                        border: 'none',
-                        color: '#FFF',
-                        '::before': { border: 'none' },
-                    }}
-                />
+                <Input type="submit" className="button-brown-pf-round" />
             </form>
         </Box>
     );

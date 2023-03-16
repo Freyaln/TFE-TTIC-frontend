@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import '../../../index.css';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Checkbox, Input } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router';
@@ -53,25 +54,10 @@ const AllergiesForm: FC = ({}) => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            style={
+            className={
                 location.pathname === '/account-creation'
-                    ? {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignContent: 'space-around',
-                          justifyContent: 'center',
-                          gap: '1rem',
-                          maxHeight: '30rem',
-                          flexWrap: 'wrap',
-                      }
-                    : {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          gap: '1rem',
-                          maxHeight: '30rem',
-                          flexWrap: 'wrap',
-                      }
+                    ? 'container-flex-col-space-mh30-wrap'
+                    : 'container-flex-col-center-mh30-wrap'
             }
         >
             <section>
@@ -100,20 +86,7 @@ const AllergiesForm: FC = ({}) => {
                     <label>Seafood</label>
                 </div>
             </section>
-            <Input
-                type="submit"
-                sx={{
-                    fontFamily: 'Playfair Display',
-                    fontWeight: 'bold',
-                    padding: '0.25rem 0.75rem 0.25rem 0.75rem',
-                    marginLeft: '10%',
-                    backgroundColor: '#906942',
-                    borderRadius: '5px',
-                    border: 'none',
-                    color: '#FFF',
-                    '::before': { border: 'none' },
-                }}
-            />
+            <Input type="submit" className="button-brown-pf-round" />
             <section>
                 <div>
                     <Controller render={({ field }) => <Checkbox {...field} />} name="sesame" control={control} />

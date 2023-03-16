@@ -1,4 +1,5 @@
 import React, { FC, ReactComponentElement, useEffect, useState } from 'react';
+import '../../index.css';
 import CreationForm from '../features/forms/CreationForm';
 import DietsForm from '../features/forms/DietsForm';
 import AllergiesForm from '../features/forms/AllergiesForm';
@@ -26,19 +27,13 @@ const Signup: FC = ({}) => {
     }, [target]);
 
     return (
-        <Box sx={{ height: '100%' }}>
-            <header style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40%' }}>
-                <Typography
-                    variant="h1"
-                    fontSize="2rem"
-                    sx={{ fontFamily: 'Playfair Display', fontWeight: 'bolder', textAlign: 'center' }}
-                >
+        <Box className="container-h100">
+            <header className="container-flex-h40">
+                <Typography variant="h1" fontSize="2rem" className="title-pf-bolder-center">
                     Create your [APPNAME] account
                 </Typography>
             </header>
-            <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', height: '60%' }}>
-                {sectionDisplayed}
-            </main>
+            <main className="container-flex-fstart-h60">{sectionDisplayed}</main>
         </Box>
     );
 };

@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import '../../../index.css';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Box, Checkbox, Input, Typography } from '@mui/material';
 import { useLocation } from 'react-router';
@@ -99,22 +100,7 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            style={
-                signupPage
-                    ? {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'stretch',
-                      }
-                    : {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'flex-start',
-                          justifyContent: 'center',
-                          gap: '1rem',
-                          marginLeft: '10%',
-                      }
-            }
+            className={signupPage ? 'container-flex-col-stretch' : 'container-flex-col-fstart'}
         >
             <div>
                 <Controller
@@ -156,29 +142,9 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
                 />
                 <label>Paleo</label>
             </div>
-            <Input
-                type="submit"
-                sx={{
-                    fontFamily: 'Playfair Display',
-                    fontWeight: 'bold',
-                    padding: '0.25rem 0.75rem 0.25rem 0.75rem',
-                    backgroundColor: '#906942',
-                    borderRadius: '5px',
-                    border: 'none',
-                    color: '#FFF',
-                    '::before': { border: 'none' },
-                }}
-            />
-            <Box sx={isChanged ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-                <Typography
-                    variant={'h6'}
-                    sx={{
-                        color: 'green',
-                        fontFamily: 'Playfair Display',
-                        fontWeight: 'bolder',
-                        textAlign: 'center',
-                    }}
-                >
+            <Input type="submit" className="button-brown-pf-round" />
+            <Box className={isChanged ? 'container-visible' : 'container-invisible'}>
+                <Typography variant={'h6'} className="form-submitted">
                     Diets changed !
                 </Typography>
             </Box>
