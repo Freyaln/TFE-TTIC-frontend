@@ -30,7 +30,7 @@ const MenuList: FC = ({}) => {
                     </Link>
                 </ListItem>
                 <ListItem>
-                    <Link style={{ display: 'flex', alignItems: 'center' }} to="/saved-recipes">
+                    <Link style={{ display: 'flex', alignItems: 'center' }} to={`/saved-recipes/${user?.username}`}>
                         <ListItemIcon>
                             <GradeIcon />
                         </ListItemIcon>

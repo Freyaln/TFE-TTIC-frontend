@@ -59,7 +59,7 @@ function IndexRouter() {
             element: <Account />,
         },
         {
-            path: '/saved-recipes',
+            path: '/saved-recipes/:username',
             element: <SavedRecipes />,
         },
         {

@@ -45,7 +45,6 @@ export const recipesApi = {
         const recipe = await axios.get(`${URL}recipes/${id}/information?apiKey=${KEY}`);
 
         if (recipe) {
-            console.log(recipe.data);
             return recipe.data;
         } else {
             throw new Error(`recipe not found`);

@@ -37,7 +37,6 @@ const possiblePersons = [
 const Recipe: FC = ({}) => {
     const [persons, setPersons] = useState('1');
     const datas: Irecipes = useLoaderData() as Irecipes;
-    console.log(datas);
     const handleChangePersons = (event: SelectChangeEvent) => {
         setPersons(event.target.value);
     };
