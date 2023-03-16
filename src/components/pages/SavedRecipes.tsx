@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../utils/store';
 import { fetchingSavedRecipes } from '../actions/fetching.action';
@@ -7,6 +7,7 @@ import { Box, IconButton, ImageList, ImageListItem, ImageListItemBar, Typography
 import { Link } from 'react-router-dom';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import { removeFavRecipesAction } from '../actions/update.action';
+import Header from '../features/Header';
 
 const SavedRecipes: FC = ({}) => {
     const maxWidth = 0.95 * screen.width;
@@ -27,59 +28,66 @@ const SavedRecipes: FC = ({}) => {
     }, [fav]);
 
     return (
-        <Box>
-            <Typography
-                variant="h2"
-                fontSize="1.5rem"
-                sx={{
-                    fontFamily: 'Playfair Display',
-                    fontWeight: 'bolder',
-                    textAlign: 'center',
-                    marginTop: '1rem',
-                    textDecoration: 'underline',
-                    textUnderlineOffset: '0.25rem',
-                }}
-            >
-                Your favourites recipes
-            </Typography>
-            {recipes && (
-                <ImageList
-                    cols={isMobile ? 1 : 2}
-                    sx={
-                        isMobile
-                            ? {
-                                  justifyItems: 'center',
-                                  width: maxWidth,
-                                  height: 'auto',
-                                  margin: '0 auto',
-                                  marginTop: '1rem',
-                              }
-                            : { width: maxWidth, height: 'auto', margin: '0 auto', marginTop: '1rem' }
-                    }
+        <>
+            <Header />
+            <Box>
+                <Typography
+                    variant="h2"
+                    fontSize="1.5rem"
+                    sx={{
+                        fontFamily: 'Playfair Display',
+                        fontWeight: 'bolder',
+                        textAlign: 'center',
+                        marginTop: '1rem',
+                        textDecoration: 'underline',
+                        textUnderlineOffset: '0.25rem',
+                    }}
                 >
-                    {recipes &&
-                        recipes.map((i: Irecipes) => (
-                            <ImageListItem key={i.id}>
-                                <Link to={`/recipe/${i.id}/${i.title}`}>
-                                    <img src={`${i.image}?w=300&fit=crop&auto=format`} alt={i.title} loading="lazy" />
-                                </Link>
-                                <ImageListItemBar
-                                    title={i.title}
-                                    sx={{ fontSize: '0.75rem' }}
-                                    actionIcon={
-                                        <IconButton
-                                            sx={{ color: 'yellow', marginRight: '1rem' }}
-                                            onClick={() => handleFavorites(i.id)}
-                                        >
-                                            <StarRateIcon />
-                                        </IconButton>
-                                    }
-                                ></ImageListItemBar>
-                            </ImageListItem>
-                        ))}
-                </ImageList>
-            )}
-        </Box>
+                    Your favourites recipes
+                </Typography>
+                {recipes && (
+                    <ImageList
+                        cols={isMobile ? 1 : 2}
+                        sx={
+                            isMobile
+                                ? {
+                                      justifyItems: 'center',
+                                      width: maxWidth,
+                                      height: 'auto',
+                                      margin: '0 auto',
+                                      marginTop: '1rem',
+                                  }
+                                : { width: maxWidth, height: 'auto', margin: '0 auto', marginTop: '1rem' }
+                        }
+                    >
+                        {recipes &&
+                            recipes.map((i: Irecipes) => (
+                                <ImageListItem key={i.id}>
+                                    <Link to={`/recipe/${i.id}/${i.title}`}>
+                                        <img
+                                            src={`${i.image}?w=300&fit=crop&auto=format`}
+                                            alt={i.title}
+                                            loading="lazy"
+                                        />
+                                    </Link>
+                                    <ImageListItemBar
+                                        title={i.title}
+                                        sx={{ fontSize: '0.75rem' }}
+                                        actionIcon={
+                                            <IconButton
+                                                sx={{ color: 'yellow', marginRight: '1rem' }}
+                                                onClick={() => handleFavorites(i.id)}
+                                            >
+                                                <StarRateIcon />
+                                            </IconButton>
+                                        }
+                                    ></ImageListItemBar>
+                                </ImageListItem>
+                            ))}
+                    </ImageList>
+                )}
+            </Box>
+        </>
     );
 };
 

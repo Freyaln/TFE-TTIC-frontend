@@ -25,8 +25,9 @@ export const recipesApi = {
             throw new Error('No diets found');
         } else {
             const diets = activeDiets.map(([key]) => key).join('|');
+            const allergies = activeAllergies.map(([key]) => key).join(',');
             const response = await axios.get(
-                `${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&number=50`,
+                `${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&intolerances=${allergies}number=50`,
                 config,
             );
             return response.data.results;
