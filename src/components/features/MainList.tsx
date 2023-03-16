@@ -1,4 +1,5 @@
 import { Box, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
+import '../../index.css';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import { Link } from 'react-router-dom';
@@ -38,16 +39,8 @@ const HomeList: React.FC = ({}) => {
             {recipes && (
                 <ImageList
                     cols={isMobile ? 1 : 2}
-                    sx={
-                        isMobile
-                            ? {
-                                  justifyItems: 'center',
-                                  width: maxWidth,
-                                  height: 'auto',
-                                  margin: '0 auto',
-                                  marginTop: '1rem',
-                              }
-                            : { width: maxWidth, height: 'auto', margin: '0 auto', marginTop: '1rem' }
+                    className={
+                        isMobile ? 'container-images-center-vw95-mobile' : 'container-images-center-vw95-desktop'
                     }
                 >
                     {recipes &&
@@ -58,12 +51,9 @@ const HomeList: React.FC = ({}) => {
                                 </Link>
                                 <ImageListItemBar
                                     title={i.title}
-                                    sx={{ fontSize: '0.75rem' }}
+                                    className="text-xsmall"
                                     actionIcon={
-                                        <IconButton
-                                            sx={{ color: 'yellow', marginRight: '1rem' }}
-                                            onClick={() => handleFavorites(i.id)}
-                                        >
+                                        <IconButton className="star-icon" onClick={() => handleFavorites(i.id)}>
                                             {user &&
                                             user.fav_recipes_id!.find((element) => element === i.id.toString()) ? (
                                                 <StarRateIcon />

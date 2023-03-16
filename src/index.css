@@ -108,6 +108,22 @@ code {
   visibility: hidden;
 }
 
+/* IMAGES LIST */
+
+.container-images-center-vw95-mobile {
+  justify-items: center;
+  width: 95vw;
+  height: auto;
+  margin: 1rem auto 0;
+}
+
+.container-images-center-vw95-desktop {
+  width: 95vw;
+  height: auto;
+  margin: 1rem auto 0;
+}
+
+
 /* TEXT */
 
 .title-pf-bolder {
@@ -127,6 +143,10 @@ code {
 
 .text-small {
   font-size: 0.85rem;
+}
+
+.text-xsmall {
+  font-size: 0.75rem;
 }
 
 .bold {
@@ -185,4 +205,9 @@ a {
   color: #FFF !important;
   font-family: 'Playfair Display', serif !important;
   width: 7.5rem;
+}
+
+.star-icon {
+  color: yellow !important;
+  margin-right: 1rem !important;
 }
