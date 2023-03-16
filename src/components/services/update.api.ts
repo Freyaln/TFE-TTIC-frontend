@@ -59,11 +59,11 @@ export const updateApi = {
         };
         const data = {
             userId: payload.userId,
-            recipeId: payload.userId,
+            recipeId: payload.recipeId,
         };
         const response = await axios.post(
             'http://localhost:5000/recipe/add',
-            { id: data.userId, diets: data.userId },
+            { userId: data.userId, recipeId: data.recipeId },
             config,
         );
         return response.data;

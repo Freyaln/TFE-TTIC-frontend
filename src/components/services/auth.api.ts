@@ -8,6 +8,7 @@ export interface IUser {
     id: string;
     diets?: IDietsFormInput;
     allergies?: IAllergiesFormInput;
+    fav_recipes_id: string | string[] | null;
 }
 
 export const authApi = {
@@ -34,8 +35,8 @@ export const authApi = {
             { email: data.email, password: data.password, diets: data.diets, allergies: data.allergies },
             config,
         );
-        const { username, id, diets, allergies, token } = response.data;
-        const user = { username, id, diets, allergies };
+        const { username, id, diets, allergies, token, fav_recipes_id } = response.data;
+        const user = { username, id, diets, allergies, fav_recipes_id };
         setStorageToken(token, payload.remember);
         return user;
     },
@@ -52,8 +53,8 @@ export const authApi = {
             token: payload.token,
         };
         const response = await axios.post('http://localhost:5000/auth/reconnect', data, config);
-        const { username, id, diets, allergies } = response.data;
-        const user = { username, id, diets, allergies };
+        const { username, id, diets, allergies, fav_recipes_id } = response.data;
+        const user = { username, id, diets, allergies, fav_recipes_id };
         return user;
     },
     updateUserInfo: async (payload: string) => {
@@ -66,8 +67,8 @@ export const authApi = {
             id: payload,
         };
         const response = await axios.post('http://localhost:5000/auth/updateuser', data, config);
-        const { username, id, diets, allergies } = response.data;
-        const user = { username, id, diets, allergies };
+        const { username, id, diets, allergies, fav_recipes_id } = response.data;
+        const user = { username, id, diets, allergies, fav_recipes_id };
         return user;
     },
 };

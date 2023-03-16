@@ -40,10 +40,12 @@ export const addFavRecipesAction = createAsyncThunk(
     'update',
     async (payload: IupdateFavRecipesPayload, { dispatch, rejectWithValue }) => {
         try {
+            console.log(payload);
             dispatch(updateStart());
             const favRecipes = await updateApi.addFavRecipes(payload);
-            console.log(favRecipes);
             dispatch(updateFavRecipes(favRecipes));
+            const userUpdated = await authApi.updateUserInfo(payload.userId);
+            dispatch(updateUser(userUpdated));
         } catch (error: any) {
             const message = error.response?.data?.message || 'Something went wrong';
             dispatch(updateFailure(message));
