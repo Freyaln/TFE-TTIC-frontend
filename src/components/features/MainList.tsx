@@ -1,11 +1,12 @@
 import { Box, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarRateIcon from '@mui/icons-material/StarRate';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import { RootState } from '../utils/store';
 import { useEffect, useState } from 'react';
-import { addFavRecipesAction } from '../actions/update.action';
+import { addFavRecipesAction, removeFavRecipesAction } from '../actions/update.action';
 
 const HomeList: React.FC = ({}) => {
     const [recipes, setRecipes] = useState<Irecipes[] | null>([]);
@@ -19,7 +20,9 @@ const HomeList: React.FC = ({}) => {
     const handleFavorites = (element: number) => {
         const recipeId = element.toString();
         const userId = user!.id;
-        dispatch(addFavRecipesAction({ userId: userId, recipeId: recipeId }) as any);
+        user && user.fav_recipes_id!.find((elem) => elem === element.toString())
+            ? dispatch(removeFavRecipesAction({ userId: userId, recipeId: recipeId }) as any)
+            : dispatch(addFavRecipesAction({ userId: userId, recipeId: recipeId }) as any);
     };
 
     useEffect(() => {
@@ -61,7 +64,12 @@ const HomeList: React.FC = ({}) => {
                                             sx={{ color: 'yellow', marginRight: '1rem' }}
                                             onClick={() => handleFavorites(i.id)}
                                         >
-                                            <StarOutlineIcon />
+                                            {user &&
+                                            user.fav_recipes_id!.find((element) => element === i.id.toString()) ? (
+                                                <StarRateIcon />
+                                            ) : (
+                                                <StarOutlineIcon />
+                                            )}
                                         </IconButton>
                                     }
                                 ></ImageListItemBar>

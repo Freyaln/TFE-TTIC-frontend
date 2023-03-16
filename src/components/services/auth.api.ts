@@ -8,7 +8,7 @@ export interface IUser {
     id: string;
     diets?: IDietsFormInput;
     allergies?: IAllergiesFormInput;
-    fav_recipes_id: string | string[] | null;
+    fav_recipes_id: string[] | null;
 }
 
 export const authApi = {
