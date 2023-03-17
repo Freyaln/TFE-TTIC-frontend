@@ -23,19 +23,19 @@ const Header: FC = ({}) => {
     }, [query]);
 
     return (
-        <Box sx={{ height: '7.5%' }}>
-            <header className="container-flex-row-fend-fixed">
-                <div className="container-w80-center">
-                    <Typography variant="h1" fontSize="2rem" className="title-pf-bolder">
+        <Box className="header--box">
+            <header className="header--container">
+                <div className="header--title--container">
+                    <Typography variant="h1" fontSize="2rem" className="header--title--font">
                         [APPNAME]
                     </Typography>
                 </div>
-                <div style={{ width: '10%' }}>
+                <div className="header--burger">
                     <Sidebar />
                 </div>
             </header>
-            <section className="container-flex-row-sbetween-h60">
-                <List className="container-flex-row-fend">
+            <section className="header--nav--container">
+                <List className="header--nav--list">
                     <ListItem>
                         <Link to="/">
                             <ListItemText
@@ -48,7 +48,7 @@ const Header: FC = ({}) => {
                             />
                         </Link>
                     </ListItem>
-                    <ListItem sx={{ whiteSpace: 'nowrap' }}>
+                    <ListItem className="header--nav--list--item--nowrap">
                         <Link to="/wines-guide">
                             <ListItemText
                                 primary="Wines guides"
@@ -61,7 +61,7 @@ const Header: FC = ({}) => {
                         </Link>
                     </ListItem>
                 </List>
-                <Searchbar inputClass="searchBar" onChange={(e) => handleSearchInput(e.currentTarget.value)} />
+                <Searchbar inputClass="searchbar--input" onChange={(e) => handleSearchInput(e.currentTarget.value)} />
             </section>
         </Box>
     );

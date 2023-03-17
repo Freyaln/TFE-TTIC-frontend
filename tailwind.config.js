@@ -7,6 +7,7 @@ module.exports = {
             brown: '#906942',
             beige: '#EBDDCD',
             'dark-brown': '#9876547F',
+            'darker-brown': '#9876547F',
             white: '#FFFFFF',
             green: '#4D8F39FF',
         },

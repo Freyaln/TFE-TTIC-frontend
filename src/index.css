@@ -138,12 +138,52 @@ code {
   @apply text-green font-playfair font-extrabold text-center !important;
 }
 
+/* HEADER */
 
-.form-submitted {
-  color: green !important;
-  font-family: 'Playfair Display', serif !important;
-  font-weight: bolder;
-  text-align: center;
+.header--box {
+  @apply h-auto;
+}
+
+.header--container {
+  @apply flex flex-row items-center justify-end fixed top-0 w-full bg-beige z-10 !important;
+}
+
+.header--title--container {
+  @apply text-center w-3/5;
+}
+
+.header--title--font {
+  @apply font-extrabold font-playfair !important;
+}
+
+.header--burger {
+  @apply w-1/6;
+}
+
+.header--nav--container {
+  @apply flex flex-row items-center justify-between w-full bg-darker-brown h-14 mt-14;
+}
+
+.header--nav--list {
+  @apply flex flex-row items-center justify-end;
+}
+
+.header--nav--list--item--nowrap {
+  @apply whitespace-nowrap;
+}
+
+/* SEARCHBAR */
+
+.searchbar--container {
+  @apply flex items-center relative right-3.5;
+}
+
+.searchbar--icon {
+  @apply absolute left-0 text-xl bg-darker-brown h-full !important;
+}
+
+.searchbar--input {
+  @apply border border-solid border-brown rounded w-36 placeholder:font-bold text-right pr-2;
 }
 
 .container-flex-col-fstart {
@@ -160,29 +200,6 @@ code {
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-.container-flex-row-fend-fixed {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #EBDDCD !important;
-  z-index: 1000;
-}
-
-.container-flex-row-sbetween-h60 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 60px;
-  width: 100%;
-  margin-top: 60px;
-  background-color: rgba(152,118,84,0.5) !important;
 }
 
 .container-flex-row-fend {
@@ -206,11 +223,6 @@ code {
 
 .container-h100 {
   height: 100%;
-}
-
-.container-w80-center {
-  width: 80%;
-  text-align: center;
 }
 
 .container-visible {
