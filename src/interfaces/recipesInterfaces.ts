@@ -33,7 +33,26 @@ export interface Irecipes {
     occasions: [];
     instructions: string;
     analyzedInstructions: instructions[];
+    winePairing: winePairing;
     spoonicularSourceUrl: string;
+}
+
+interface winePairing {
+    pairingWines: string[];
+    pairingText: string;
+    productMatches: productMatches[];
+}
+
+interface productMatches {
+    id: number;
+    title: string;
+    description: string;
+    price: string;
+    imageUrl: string;
+    averageRating: number;
+    ratingCount: number;
+    score: number;
+    link: string;
 }
 
 interface extendedIng {
@@ -49,13 +68,13 @@ interface extendedIng {
     unit: string;
     meta: string[];
     measures: {
-        us: measure[];
-        metric: measure[];
+        us: measure;
+        metric: measure;
     };
 }
 
 type measure = {
-    amout: number;
+    amount: number;
     unitShort: string;
     unitLong: string;
 };

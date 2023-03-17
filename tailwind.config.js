@@ -11,6 +11,7 @@ module.exports = {
                 'darker-brown': '#9876547F',
                 white: '#FFFFFF',
                 green: '#4D8F39FF',
+                'base-color': '#EBDDCD',
             },
             fontFamily: {
                 playfair: ['Playfair Display', 'serif'],

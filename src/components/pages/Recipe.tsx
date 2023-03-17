@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -36,29 +36,33 @@ const possiblePersons = [
 
 const Recipe: FC = ({}) => {
     const [persons, setPersons] = useState('1');
+    const [columns, setColumns] = useState<number>(1);
+    const [moreWines, setMoreWines] = useState<boolean>(false);
     const datas: Irecipes = useLoaderData() as Irecipes;
     const handleChangePersons = (event: SelectChangeEvent) => {
         setPersons(event.target.value);
     };
 
+    useEffect(() => {
+        if (datas.extendedIngredients.length > 5) {
+            setColumns(2);
+        } else {
+            setColumns(1);
+        }
+        if (datas.winePairing.pairingWines !== undefined && datas.winePairing.pairingWines.length > 0) {
+            setMoreWines(true);
+        }
+    }, [datas]);
+
     return (
         <Box>
-            <Typography
-                variant="h2"
-                fontSize="2rem"
-                sx={{ fontFamily: 'Playfair Display', fontWeight: 'bolder', textAlign: 'center', marginTop: '1rem' }}
-            >
+            <Typography variant="h2" fontSize="1.5rem" className="recipe--title">
                 {datas.title}
             </Typography>
-            <Box
-                component="img"
-                sx={{ position: 'relative', margin: '1rem auto', width: '90%', height: 'auto' }}
-                alt={datas.title}
-                src={datas.image}
-            />
-            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box component="img" className="recipe--image--container" alt={datas.title} src={datas.image} />
+            <Box className="recipe--details--persons__count--container">
                 <FormControl>
-                    <InputLabel id="numberPersons" sx={{ width: '10rem' }}>
+                    <InputLabel id="numberPersons" className="recipe--details--persons__count">
                         How many persons ?
                     </InputLabel>
                     <Select
@@ -66,7 +70,7 @@ const Recipe: FC = ({}) => {
                         value={persons}
                         label="How many persons ?"
                         onChange={handleChangePersons}
-                        sx={{ width: '10rem', fontFamily: 'Playfair Display' }}
+                        className="recipe--details--persons__count"
                     >
                         {possiblePersons.map((i) => (
                             <MenuItem key={uuidv4()} value={i.number}>
@@ -76,45 +80,78 @@ const Recipe: FC = ({}) => {
                     </Select>
                 </FormControl>
             </Box>
-            <Typography variant="h6" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bold', marginLeft: '15%' }}>
+            <Typography variant="h6" className="recipe--details--subtitle">
                 Ingredients
             </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Box className="recipe--details--list">
                 <List>
-                    {datas.extendedIngredients.map((i) => (
-                        <ListItem key={uuidv4()}>
-                            <Box
-                                component="img"
-                                sx={{ width: 24, height: 24, marginRight: '1rem' }}
-                                alt={i.name}
-                                src={`https://spoonacular.com/cdn/ingredients_100x100/${i.image}`}
-                            ></Box>
-                            <ListItemText primary={i.name.replace(/^\w/, (c) => c.toUpperCase())}></ListItemText>
-                        </ListItem>
-                    ))}
-                </List>
-                <List>
-                    {datas.extendedIngredients.map((i) => (
-                        <ListItem key={uuidv4()}>
-                            <ListItemText
-                                key={uuidv4()}
-                                primary={`${i.amount * Number(persons)}  ${i.unit}`}
-                            ></ListItemText>
-                        </ListItem>
-                    ))}
+                    {columns === 2 ? (
+                        <Grid container direction="row">
+                            {datas.extendedIngredients.map((i) => (
+                                <Grid item xs={6} key={i.id}>
+                                    <ListItem key={uuidv4()}>
+                                        <Box
+                                            component="img"
+                                            className="recipe--details--list__item--image"
+                                            alt={i.name}
+                                            src={`https://spoonacular.com/cdn/ingredients_100x100/${i.image}`}
+                                        ></Box>
+                                        <ListItemText
+                                            className="recipe--details--list__item--text--xs"
+                                            primary={i.name.replace(/^\w/, (c) => c.toUpperCase())}
+                                            secondary={`${i.measures.metric.amount * Number(persons)}  ${
+                                                i.measures.metric.unitLong
+                                            }`}
+                                        ></ListItemText>
+                                    </ListItem>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    ) : (
+                        datas.extendedIngredients.map((i) => (
+                            <ListItem key={uuidv4()}>
+                                <Box
+                                    component="img"
+                                    className="recipe--details--list__item--image"
+                                    alt={i.name}
+                                    src={`https://spoonacular.com/cdn/ingredients_100x100/${i.image}`}
+                                ></Box>
+                                <ListItemText primary={i.name.replace(/^\w/, (c) => c.toUpperCase())}></ListItemText>
+                            </ListItem>
+                        ))
+                    )}
                 </List>
             </Box>
-            <Typography variant="h6" sx={{ fontFamily: 'Playfair Display', fontWeight: 'bold', marginLeft: '15%' }}>
-                Suggested wines
+            <Typography variant="h6" className="recipe--details--subtitle">
+                Suggested wine
             </Typography>
-            <Box sx={{ display: 'flex', marginLeft: '17%' }}>
-                {/*<List>*/}
-                {/*    {mockIngredients.map((i) => (*/}
-                {/*        <ListItem key={uuidv4()}>*/}
-                {/*            <ListItemText primary={i.nameWine} secondary={i.descWine}></ListItemText>*/}
-                {/*        </ListItem>*/}
-                {/*    ))}*/}
-                {/*</List>*/}
+            <Box>
+                <List className="recipe--details--wine">
+                    {datas.winePairing.productMatches.map((i) => (
+                        <>
+                            <ListItemText className="recipe--details--list__item--text--sm" primary={i.title} />
+                            <Box
+                                component="img"
+                                className="recipe--details--list__item--image--wine"
+                                alt={i.title}
+                                src={`${i.imageUrl}`}
+                            ></Box>
+                            <ListItem key={uuidv4()}>
+                                <ListItemText primary={i.description}></ListItemText>
+                            </ListItem>
+                            {moreWines && (
+                                <>
+                                    <Typography variant="h6" fontSize={'1rem'} className="recipe--details--subtitle">
+                                        More wuggestion ? Take a look
+                                    </Typography>
+                                    <List>
+                                        <ListItemText primary={'test'} />
+                                    </List>
+                                </>
+                            )}
+                        </>
+                    ))}
+                </List>
             </Box>
         </Box>
     );

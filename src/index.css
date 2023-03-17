@@ -216,116 +216,48 @@ code {
   @apply text-yellow-300 mr-4 !important;
 }
 
+/* RECIPE DETAILS */
 
-.container-images-center-vw95-mobile {
-  justify-items: center;
-  width: 95vw;
-  height: auto;
-  margin: 1rem auto 0;
+.recipe--title {
+  @apply font-playfair font-extrabold text-center mt-4 !important;
 }
 
-.container-images-center-vw95-desktop {
-  width: 95vw;
-  height: auto;
-  margin: 1rem auto 0;
+.recipe--image--container {
+  @apply relative mt-4 mx-auto w-10/12 h-auto;
 }
 
-.container-flex-col-fstart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1rem;
+.recipe--details--persons__count--container {
+  @apply flex justify-center mt-10;
 }
 
-.container-flex-col-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+.recipe--details--persons__count {
+  @apply w-40 font-playfair font-bold !important;
 }
 
-.container-flex-row-fend {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+.recipe--details--subtitle {
+  @apply font-playfair font-bold ml-10 mt-10 !important;
 }
 
-.container-flex-col-stretch {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+.recipe--details--list--wines {
+  @apply flex flex-col justify-around;
 }
 
-.container-flex-col {
-  display: flex;
-  flex-direction: column;
+.recipe--details--list__item--image {
+  @apply w-6 h-6 mr-4 bg-transparent;
 }
 
-
-.container-h100 {
-  height: 100%;
+.recipe--details--list__item--image--wine {
+  @apply mr-4 bg-transparent;
 }
 
-.container-visible {
-  visibility: visible;
+.recipe--details--wine {
+  @apply flex flex-col justify-center items-center;
 }
 
-.container-invisible {
-  visibility: hidden;
+.recipe--details--list__item--text--xs .MuiListItemText-primary {
+  @apply text-xs;
 }
 
-/* TEXT */
-
-
-.title-pf-bolder-center {
-  font-family: 'Playfair Display', serif !important;
-  font-weight: bolder !important;
-  text-align: center;
-}
-
-.subtitle-pf {
-  font-family: 'Playfair Display', serif !important;
-}
-
-.text-small {
-  font-size: 0.85rem;
-}
-
-.text-xsmall {
-  font-size: 0.75rem;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-/* LINKS */
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-/* INPUTS */
-
-.checkboxes-mr-p {
-  margin-right: 0.85rem;
-  padding: 0 !important;
-}
-
-.input-w100 {
-  width: 100%;
-}
-
-/* BUTTONS */
-
-
-.button-brown-pf-large {
-  background-color: #906942 !important;
-  color: #FFF !important;
-  font-family: 'Playfair Display', serif !important;
-  width: 7.5rem;
+.recipe--details--list__item--text--sm .MuiListItemText-primary {
+  @apply text-sm font-bold;
 }
