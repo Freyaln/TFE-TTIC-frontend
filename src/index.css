@@ -24,7 +24,65 @@ code {
 
 
 
-/* CONTAINERS */
+/* LOGIN */
+
+.login--container {
+  @apply flex flex-col justify-center items-center h-full;
+}
+
+.login--title {
+  @apply absolute;
+  top: 15%;
+}
+
+.login--title--font {
+  @apply font-extrabold font-playfair !important;
+}
+
+.login--form--container {
+  @apply flex flex-col justify-center items-start gap-4;
+}
+
+.login--form--input--container {
+  @apply flex flex-col;
+}
+
+.login--form--input--label {
+  @apply font-bold;
+}
+
+.login--form-check--label {
+  @apply text-xs;
+}
+
+.login--form--forget--font {
+  @apply font-playfair !important;
+}
+
+.login--form--submit {
+  @apply bg-brown text-white font-playfair !important;
+}
+
+.login--create--container {
+@apply absolute;
+  bottom: 15%;
+}
+
+.login--create--font {
+  @apply font-playfair text-xs !important;
+}
+
+.login--create--button {
+  @apply bg-brown text-white font-playfair w-28 !important;
+}
+
+.container-flex-col-fstart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
 
 .container-flex-col-center {
   display: flex;
@@ -97,13 +155,6 @@ code {
   height: 60%;
 }
 
-.container-flex-col-fstart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1rem;
-}
 
 .container-flex-col-stretch {
   display: flex;
@@ -116,15 +167,6 @@ code {
   flex-direction: column;
 }
 
-.container-absolute-t10 {
-  position: absolute;
-  top: 10%;
-}
-
-.container-absolute-b15 {
-  position: absolute;
-  bottom: 15%;
-}
 
 .container-h100 {
   height: 100%;
@@ -161,10 +203,6 @@ code {
 
 /* TEXT */
 
-.title-pf-bolder {
-  font-family: 'Playfair Display', serif !important;
-  font-weight: bolder !important;
-}
 
 .title-pf-bolder-center {
   font-family: 'Playfair Display', serif !important;
@@ -215,11 +253,6 @@ a {
 
 /* BUTTONS */
 
-.button-brown-pf {
-  background-color: #906942 !important;
-  color: #FFF !important;
-  font-family: 'Playfair Display', serif !important;
-}
 
 .button-brown-pf-round {
   font-family: 'Playfair Display', serif !important;

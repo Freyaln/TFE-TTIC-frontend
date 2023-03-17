@@ -51,15 +51,15 @@ const LoginForm: FC = () => {
     }, []);
 
     return (
-        <Box className="container-flex-col-center">
-            <Box className="container-absolute-t10">
-                <Typography variant="h1" fontSize="2rem" className="title-pf-bolder">
+        <Box className="login--container">
+            <Box className="login--title">
+                <Typography variant="h1" fontSize="2rem" className="login--title--font">
                     [APPNAME]
                 </Typography>
             </Box>
-            <form method="POST" onSubmit={handleSubmit(onSubmit)} className="container-flex-col-fstart">
-                <div className="container-flex-col">
-                    <label className="bold">Email</label>
+            <form method="POST" onSubmit={handleSubmit(onSubmit)} className="login--form--container">
+                <div className="login--form--input--container">
+                    <label className="login--form--label">Email</label>
                     <Controller
                         render={({ field }) => (
                             <TextField
@@ -73,8 +73,8 @@ const LoginForm: FC = () => {
                         control={control}
                     />
                 </div>
-                <div className="container-flex-col">
-                    <label className="bold">Password</label>
+                <div className="login--form--input--container">
+                    <label className="login--form--label">Password</label>
                     <Controller
                         render={({ field }) => (
                             <TextField
@@ -95,22 +95,22 @@ const LoginForm: FC = () => {
                         name="remember"
                         control={control}
                     />
-                    <label className="text-small">Remember me</label>
+                    <label className="login--form-check--label">Remember me</label>
                 </div>
-                <div className="container-flex-col">
-                    <Typography variant="subtitle2" fontSize="0.60rem" className="subtitle-pf">
+                <div className="login--form--input--container">
+                    <Typography variant="subtitle2" fontSize="0.60rem" className="login--form--forget--font">
                         Forgot your password ?
                     </Typography>
-                    <Button type="submit" fullWidth={true} className="button-brown-pf">
+                    <Button type="submit" fullWidth={true} className="login--form--submit">
                         Login
                     </Button>
                 </div>
             </form>
-            <Box className="container-absolute-b15">
-                <Typography variant="subtitle2" className="subtitle-pf">
+            <Box className="login--create--container">
+                <Typography variant="subtitle2" className="login--create--font">
                     Don`&apos;t have an account yet ?
                 </Typography>
-                <Button href="/account-creation" className="button-brown-pf-large">
+                <Button href="/account-creation" className="login--create--button">
                     Create it
                 </Button>
             </Box>
