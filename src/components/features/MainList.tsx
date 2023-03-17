@@ -39,9 +39,7 @@ const HomeList: React.FC = ({}) => {
             {recipes && (
                 <ImageList
                     cols={isMobile ? 1 : 2}
-                    className={
-                        isMobile ? 'container-images-center-vw95-mobile' : 'container-images-center-vw95-desktop'
-                    }
+                    className={isMobile ? 'image_list--container--mobile' : 'image_list--container--desktop'}
                 >
                     {recipes &&
                         recipes.map((i: Irecipes) => (
@@ -51,9 +49,12 @@ const HomeList: React.FC = ({}) => {
                                 </Link>
                                 <ImageListItemBar
                                     title={i.title}
-                                    className="text-xsmall"
+                                    className="image_list--list_item_text"
                                     actionIcon={
-                                        <IconButton className="star-icon" onClick={() => handleFavorites(i.id)}>
+                                        <IconButton
+                                            className="image_list--list_item_icon"
+                                            onClick={() => handleFavorites(i.id)}
+                                        >
                                             {user &&
                                             user.fav_recipes_id!.find((element) => element === i.id.toString()) ? (
                                                 <StarRateIcon />
