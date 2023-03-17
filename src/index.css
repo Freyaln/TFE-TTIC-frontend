@@ -76,7 +76,7 @@ code {
   @apply bg-brown text-white font-playfair w-28 !important;
 }
 
-/* ACCOUNT CREATION */
+/* ACCOUNT CREATION & SETTINGS */
 
 .signup--container {
   @apply h-screen;
@@ -136,6 +136,18 @@ code {
 
 .settings--changed--visible--applied {
   @apply text-green font-playfair font-extrabold text-center !important;
+}
+
+.account--main--form--password {
+  @apply flex flex-col items-start justify-center gap-4 ml-10;
+}
+
+.account--main--form--password--input {
+  @apply w-9/12;
+}
+
+.account--main--form--button {
+  @apply font-playfair text-white font-bold bg-brown border-none rounded py-1 px-3 before:border-none !important
 }
 
 /* HEADER */

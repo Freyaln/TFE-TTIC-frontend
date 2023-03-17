@@ -59,24 +59,14 @@ const SecurityForm: FC = ({}) => {
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                gap: '1rem',
-                marginLeft: '10%',
-            }}
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="account--main--form--password">
             <div>
                 <label>Old password</label>
                 <Controller
                     render={({ field }) => (
                         <TextField
                             {...field}
-                            sx={{ width: '75%' }}
+                            className="account--main--form--password--input"
                             placeholder="Old password..."
                             type="password"
                             error={!!errors.oldPassword}
@@ -93,7 +83,7 @@ const SecurityForm: FC = ({}) => {
                     render={({ field }) => (
                         <TextField
                             {...field}
-                            sx={{ width: '75%' }}
+                            className="account--main--form--password--input"
                             placeholder="New password..."
                             type="password"
                             error={!!errors.newPassword}
@@ -110,7 +100,7 @@ const SecurityForm: FC = ({}) => {
                     render={({ field }) => (
                         <TextField
                             {...field}
-                            sx={{ width: '75%' }}
+                            className="account--main--form--password--input"
                             placeholder="Confirm password..."
                             type="password"
                             error={!!errors.confirmNewPassword}
@@ -121,29 +111,9 @@ const SecurityForm: FC = ({}) => {
                     control={control}
                 />
             </div>
-            <Input
-                type="submit"
-                sx={{
-                    fontFamily: 'Playfair Display',
-                    fontWeight: 'bold',
-                    padding: '0.25rem 0.75rem 0.25rem 0.75rem',
-                    backgroundColor: '#906942',
-                    borderRadius: '5px',
-                    border: 'none',
-                    color: '#FFF',
-                    '::before': { border: 'none' },
-                }}
-            />
-            <Box sx={isChanged ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-                <Typography
-                    variant={'h6'}
-                    sx={{
-                        color: 'green',
-                        fontFamily: 'Playfair Display',
-                        fontWeight: 'bolder',
-                        textAlign: 'center',
-                    }}
-                >
+            <Input type="submit" className="account--main--form--button" />
+            <Box className={isChanged ? 'settings--changed--visible' : 'settings--changed--invisible'}>
+                <Typography variant={'h6'} className="settings--changed--visible--applied">
                     Password changed !
                 </Typography>
             </Box>
