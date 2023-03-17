@@ -8,9 +8,13 @@ module.exports = {
             beige: '#EBDDCD',
             'dark-brown': '#9876547F',
             white: '#FFFFFF',
+            green: '#4D8F39FF',
         },
         fontFamily: {
             playfair: ['Playfair Display', 'serif'],
+        },
+        maxHeight: {
+            110: '24rem',
         },
         extend: {},
     },

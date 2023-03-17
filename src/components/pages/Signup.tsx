@@ -27,13 +27,13 @@ const Signup: FC = ({}) => {
     }, [target]);
 
     return (
-        <Box className="container-h100">
-            <header className="container-flex-h40">
-                <Typography variant="h1" fontSize="2rem" className="title-pf-bolder-center">
+        <Box className="signup--container">
+            <header className="signup--header">
+                <Typography variant="h1" fontSize="2rem" className="signup--header--title">
                     Create your [APPNAME] account
                 </Typography>
             </header>
-            <main className="container-flex-fstart-h60">{sectionDisplayed}</main>
+            <main className="signup--main--container">{sectionDisplayed}</main>
         </Box>
     );
 };

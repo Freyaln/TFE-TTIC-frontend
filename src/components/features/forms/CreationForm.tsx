@@ -34,40 +34,49 @@ const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ set
     };
     return (
         <Box>
-            <form onSubmit={handleSubmit(onSubmit)} className="container-flex-col-fstart">
-                <div className="container-flex-col">
+            <form onSubmit={handleSubmit(onSubmit)} className="signup--main--form--creation">
+                <div className="signup--main--form--input--container">
                     <label>Email</label>
                     <Controller
-                        render={({ field }) => <Input {...field} className="input-w100" placeholder="Email..." />}
+                        render={({ field }) => (
+                            <Input {...field} className="signup--main--form--input" placeholder="Email..." />
+                        )}
                         name="email"
                         control={control}
                     />
                 </div>
-                <div className="container-flex-col">
+                <div className="signup--main--form--input--container">
                     <label>Username</label>
                     <Controller
-                        render={({ field }) => <Input {...field} className="input-w100" placeholder="Username" />}
+                        render={({ field }) => (
+                            <Input {...field} className="signup--main--form--input" placeholder="Username" />
+                        )}
                         name="username"
                         control={control}
                     />
                 </div>
-                <div className="container-flex-col">
+                <div className="signup--main--form--input--container">
                     <label>Password</label>
                     <Controller
                         render={({ field }) => (
-                            <Input {...field} className="input-w100" placeholder="Password..." type="password" />
+                            <Input
+                                {...field}
+                                className="signup--main--form--input"
+                                placeholder="Password..."
+                                type="password"
+                            />
                         )}
                         name="password"
                         control={control}
                     />
                 </div>
-                <div className="container-flex-col">
+                <div className="signup--main--form--input--container">
                     <label style={formIsValid != false ? {} : { color: 'red' }}>Confirm password</label>
                     <Controller
                         render={({ field }) => (
                             <Input
                                 {...field}
-                                className="input-w100"
+                                className="signup--main--form--input"
                                 placeholder="Confirm password..."
                                 type="password"
                             />
@@ -76,7 +85,7 @@ const CreationForm: FC<{ setTarget: Dispatch<SetStateAction<string>> }> = ({ set
                         control={control}
                     />
                 </div>
-                <Input type="submit" className="button-brown-pf-round" />
+                <Input type="submit" className="signup--main--form--button" />
             </form>
         </Box>
     );

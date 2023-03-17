@@ -76,6 +76,76 @@ code {
   @apply bg-brown text-white font-playfair w-28 !important;
 }
 
+/* ACCOUNT CREATION */
+
+.signup--container {
+  @apply h-screen;
+}
+
+.signup--header {
+  @apply flex justify-center items-center h-2/5;
+}
+
+.signup--header--title {
+  @apply font-extrabold font-playfair text-center !important;
+}
+
+.signup--main--container {
+  @apply flex justify-center items-start h-3/5;
+}
+
+.signup--main--form--creation {
+  @apply flex flex-col justify-center items-start gap-4;
+}
+
+.signup--main--form--input--container {
+  @apply flex flex-col;
+}
+
+.signup--main--form--input {
+  @apply w-max;
+}
+
+.signup--main--form--button {
+  @apply font-playfair text-white font-bold bg-brown border-none rounded py-1 px-3 before:border-none !important
+}
+
+.signup--main--form--diets--stretch {
+  @apply flex flex-col items-stretch;
+}
+
+.signup--main--form--diets--start {
+  @apply flex flex-col items-start;
+}
+
+.signup--main--form--allergies--space {
+  @apply flex flex-col content-around justify-center flex-wrap gap-4 max-h-110;
+}
+
+.signup--main--form--allergies--center {
+  @apply flex flex-col justify-center flex-wrap gap-4 max-h-110;
+}
+
+.settings--changed--visible {
+  @apply visible;
+}
+
+.settings--changed--invisible {
+  @apply invisible;
+}
+
+.settings--changed--visible--applied {
+  @apply text-green font-playfair font-extrabold text-center !important;
+}
+
+
+.form-submitted {
+  color: green !important;
+  font-family: 'Playfair Display', serif !important;
+  font-weight: bolder;
+  text-align: center;
+}
+
 .container-flex-col-fstart {
   display: flex;
   flex-direction: column;
@@ -90,32 +160,6 @@ code {
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-.container-flex-h40 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40%;
-}
-
-.container-flex-col-center-mh30-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-height: 30rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.container-flex-col-space-mh30-wrap {
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  justify-content: center;
-  max-height: 30rem;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .container-flex-row-fend-fixed {
@@ -147,14 +191,6 @@ code {
   align-items: center;
   justify-content: flex-end;
 }
-
-.container-flex-fstart-h60 {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 60%;
-}
-
 
 .container-flex-col-stretch {
   display: flex;
@@ -226,13 +262,6 @@ code {
   font-weight: bold;
 }
 
-.form-submitted {
-  color: green !important;
-  font-family: 'Playfair Display', serif !important;
-  font-weight: bolder;
-  text-align: center;
-}
-
 /* LINKS */
 
 a {
@@ -253,20 +282,6 @@ a {
 
 /* BUTTONS */
 
-
-.button-brown-pf-round {
-  font-family: 'Playfair Display', serif !important;
-  font-weight: bold !important;
-  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
-  background-color: #906942 !important;
-  color: #FFF !important;
-  border: none;
-  border-radius: 5px;
-}
-
-.button-brown-pf-round::before {
-  border: none !important;
-}
 
 .button-brown-pf-large {
   background-color: #906942 !important;

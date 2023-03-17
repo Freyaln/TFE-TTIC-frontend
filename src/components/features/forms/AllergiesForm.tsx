@@ -56,8 +56,8 @@ const AllergiesForm: FC = ({}) => {
             onSubmit={handleSubmit(onSubmit)}
             className={
                 location.pathname === '/account-creation'
-                    ? 'container-flex-col-space-mh30-wrap'
-                    : 'container-flex-col-center-mh30-wrap'
+                    ? 'signup--main--form--allergies--space'
+                    : 'signup--main--form--allergies--center'
             }
         >
             <section>
@@ -86,7 +86,7 @@ const AllergiesForm: FC = ({}) => {
                     <label>Seafood</label>
                 </div>
             </section>
-            <Input type="submit" className="button-brown-pf-round" />
+            <Input type="submit" className="signup--main--form--button" />
             <section>
                 <div>
                     <Controller render={({ field }) => <Checkbox {...field} />} name="sesame" control={control} />

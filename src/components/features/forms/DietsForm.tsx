@@ -100,7 +100,7 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className={signupPage ? 'container-flex-col-stretch' : 'container-flex-col-fstart'}
+            className={signupPage ? 'signup--main--form--diets--stretch' : 'signup--main--form--diets--start'}
         >
             <div>
                 <Controller
@@ -142,9 +142,9 @@ const DietsForm: FC<{ setTarget?: Dispatch<SetStateAction<string>> }> = ({ setTa
                 />
                 <label>Paleo</label>
             </div>
-            <Input type="submit" className="button-brown-pf-round" />
-            <Box className={isChanged ? 'container-visible' : 'container-invisible'}>
-                <Typography variant={'h6'} className="form-submitted">
+            <Input type="submit" className="signup--main--form--button" />
+            <Box className={isChanged ? 'settings--changed--visible' : 'settings--changed--invisible'}>
+                <Typography variant={'h6'} className="settings--changed--visible--applied">
                     Diets changed !
                 </Typography>
             </Box>
