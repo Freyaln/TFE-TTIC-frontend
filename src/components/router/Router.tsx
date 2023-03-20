@@ -3,7 +3,7 @@ import HomePage from '../pages/HomePage';
 import Account from '../pages/Account';
 import SavedRecipes from '../pages/SavedRecipes';
 import Recipe from '../pages/Recipe';
-import Wines from '../pages/Wines';
+import WinesGuide from '../pages/Wines-guide';
 import Login from '../pages/Login';
 import Recovery from '../pages/Recovery';
 import Signup from '../pages/Signup';
@@ -50,7 +50,7 @@ function IndexRouter() {
                 },
                 {
                     path: '/wines-guide',
-                    element: <Wines />,
+                    element: <WinesGuide />,
                 },
             ],
         },

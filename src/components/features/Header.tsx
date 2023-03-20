@@ -51,7 +51,7 @@ const Header: FC = ({}) => {
                     <ListItem className="header--nav--list--item--nowrap">
                         <Link to="/wines-guide">
                             <ListItemText
-                                primary="Wines guides"
+                                primary="Wines guide"
                                 primaryTypographyProps={{
                                     fontSize: '0.85rem',
                                     fontFamily: 'Playfair Display',
