@@ -37,8 +37,8 @@ export interface Irecipes {
     spoonicularSourceUrl: string;
 }
 
-interface winePairing {
-    pairingWines: string[];
+export interface winePairing {
+    pairedWines: string[];
     pairingText: string;
     productMatches: productMatches[];
 }

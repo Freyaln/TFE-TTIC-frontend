@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
+import Wines from '../features/Wines';
 
 const possiblePersons = [
     {
@@ -49,15 +50,20 @@ const Recipe: FC = ({}) => {
         } else {
             setColumns(1);
         }
-        if (datas.winePairing.pairingWines !== undefined && datas.winePairing.pairingWines.length > 0) {
+        if (datas.winePairing.productMatches !== undefined && datas.winePairing.productMatches.length > 0) {
             setMoreWines(true);
         }
     }, [datas]);
+
+    console.log(datas.analyzedInstructions);
 
     return (
         <Box>
             <Typography variant="h2" fontSize="1.5rem" className="recipe--title">
                 {datas.title}
+            </Typography>
+            <Typography variant="h5" fontSize="1.25rem" className="recipe--subtitle">
+                Cooking time : {datas.readyInMinutes} min
             </Typography>
             <Box component="img" className="recipe--image--container" alt={datas.title} src={datas.image} />
             <Box className="recipe--details--persons__count--container">
@@ -88,7 +94,7 @@ const Recipe: FC = ({}) => {
                     {columns === 2 ? (
                         <Grid container direction="row">
                             {datas.extendedIngredients.map((i) => (
-                                <Grid item xs={6} key={i.id}>
+                                <Grid item xs={6} key={uuidv4()}>
                                     <ListItem key={uuidv4()}>
                                         <Box
                                             component="img"
@@ -121,38 +127,27 @@ const Recipe: FC = ({}) => {
                         ))
                     )}
                 </List>
-            </Box>
-            <Typography variant="h6" className="recipe--details--subtitle">
-                Suggested wine
-            </Typography>
-            <Box>
-                <List className="recipe--details--wine">
-                    {datas.winePairing.productMatches.map((i) => (
-                        <>
-                            <ListItemText className="recipe--details--list__item--text--sm" primary={i.title} />
-                            <Box
-                                component="img"
-                                className="recipe--details--list__item--image--wine"
-                                alt={i.title}
-                                src={`${i.imageUrl}`}
-                            ></Box>
-                            <ListItem key={uuidv4()}>
-                                <ListItemText primary={i.description}></ListItemText>
-                            </ListItem>
-                            {moreWines && (
-                                <>
-                                    <Typography variant="h6" fontSize={'1rem'} className="recipe--details--subtitle">
-                                        More wuggestion ? Take a look
-                                    </Typography>
-                                    <List>
-                                        <ListItemText primary={'test'} />
-                                    </List>
-                                </>
+                <List>
+                    <Box className="recipe--details--instructions">
+                        <Typography variant="h2" fontSize="1.25rem" className="recipe--details--subtitle">
+                            Cooking instructions
+                        </Typography>
+                        <List>
+                            {datas.analyzedInstructions.map((i) =>
+                                i.steps.map((s) => (
+                                    <ListItemText
+                                        className="recipe--details--instructions--list__item--text"
+                                        primary={`Step ${s.number}`}
+                                        secondary={s.step}
+                                        key={uuidv4()}
+                                    ></ListItemText>
+                                )),
                             )}
-                        </>
-                    ))}
+                        </List>
+                    </Box>
                 </List>
             </Box>
+            {moreWines && <Wines wines={datas.winePairing} />}
         </Box>
     );
 };

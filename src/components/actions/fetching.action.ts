@@ -6,6 +6,7 @@ import {
     randomRecipes,
     searchRecipes,
     favRecipes,
+    specificRecipes,
 } from '../slices/recipesSlices';
 import { recipesApi } from '../services/recipes.api';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
@@ -60,6 +61,21 @@ export const fetchingSavedRecipes = createAsyncThunk(
             dispatch(fetchingStart());
             const data: Irecipes[] = await recipesApi.fetchFavRecipes(payload);
             dispatch(favRecipes(data));
+        } catch (error: any) {
+            const message = error.response?.data?.message || 'Something went wrong';
+            dispatch(fetchingFailure({ message }));
+            return rejectWithValue(message);
+        }
+    },
+);
+
+export const fetchingSpecificRecipes = createAsyncThunk(
+    'fetch',
+    async (payload: string, { dispatch, rejectWithValue }) => {
+        try {
+            dispatch(fetchingStart());
+            const data: Irecipes[] = await recipesApi.fetchSpecificRecipes(payload);
+            dispatch(specificRecipes(data));
         } catch (error: any) {
             const message = error.response?.data?.message || 'Something went wrong';
             dispatch(fetchingFailure({ message }));

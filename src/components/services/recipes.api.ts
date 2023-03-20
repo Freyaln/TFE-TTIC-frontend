@@ -51,4 +51,13 @@ export const recipesApi = {
             throw new Error(`recipe not found`);
         }
     },
+    fetchSpecificRecipes: async (id: string) => {
+        const recipe = await axios.get(`${URL}recipes/informationBulk?apiKey=${KEY}&ids=${id}`);
+
+        if (recipe) {
+            return recipe.data;
+        } else {
+            throw new Error(`recipe not found`);
+        }
+    },
 };
