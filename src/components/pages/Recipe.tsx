@@ -55,8 +55,6 @@ const Recipe: FC = ({}) => {
         }
     }, [datas]);
 
-    console.log(datas.analyzedInstructions);
-
     return (
         <Box>
             <Typography variant="h2" fontSize="1.5rem" className="recipe--title">
