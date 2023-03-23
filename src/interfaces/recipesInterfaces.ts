@@ -43,6 +43,11 @@ export interface winePairing {
     productMatches: productMatches[];
 }
 
+export interface dishesPairing {
+    pairings: string[];
+    text: string;
+}
+
 interface productMatches {
     id: number;
     title: string;

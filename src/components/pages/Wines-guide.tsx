@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import '../../index.css';
-import List from '@mui/material/List';
-import { Box, Grid, Typography } from '@mui/material';
-import ListItemText from '@mui/material/ListItemText';
+import { Box, Button, Dialog, Grid, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom';
+import DetailWine from '../features/DetailWine';
 
 const winesTypes = [
     {
@@ -148,36 +148,81 @@ const winesTypes = [
 ];
 
 const WinesGuide: FC = ({}) => {
-    return (
-        <Box>
-            {winesTypes.map((i) => (
-                <>
-                    <Typography variant="h2" fontSize="1.5rem">
-                        {i.wine}
-                    </Typography>
+    const [open, setOpen] = useState<boolean>(false);
+    const [selectedVarietal, setSelectedVarietal] = useState<string>('');
+    const handleOpen = (variety: string) => {
+        setSelectedVarietal(variety);
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setSelectedVarietal('');
+        setOpen(false);
+    };
 
-                    <Grid container columns={2} spacing={1}>
-                        {i.subtypes &&
-                            i.subtypes.map((e) => (
-                                <>
-                                    <Grid xs={1}>
-                                        <Typography variant="h4" fontSize="1.25rem" key={uuidv4()}>
+    const formattedWinesTypes = winesTypes.map((wineType) => {
+        const formattedSubtypes = wineType.subtypes
+            ? wineType.subtypes.map((subtype) => ({
+                  subtype: subtype.subtype,
+                  varietals: subtype.varietals.map((varietal) => varietal.replace(/_/g, ' ')),
+              }))
+            : null;
+        const formattedVarietals = wineType.varietals
+            ? wineType.varietals.map((varietal) => varietal.replace(/_/g, ' '))
+            : null;
+
+        return {
+            wine: wineType.wine,
+            subtypes: formattedSubtypes,
+            varietals: formattedVarietals,
+        };
+    });
+
+    return (
+        <>
+            <Grid container spacing={2}>
+                {formattedWinesTypes.map((i) => (
+                    <Grid item xs={6} md={6} key={uuidv4()}>
+                        <section className="wine__guide--subcontainer">
+                            <Typography variant="h2" fontSize="1.5rem">
+                                {i.wine}
+                            </Typography>
+                            {i.subtypes &&
+                                i.subtypes.map((e) => (
+                                    <article key={uuidv4()}>
+                                        <Typography variant="h4" fontSize="1.25rem">
                                             {e.subtype}
                                         </Typography>
                                         {e.varietals &&
-                                            e.varietals.map((v) => <ListItemText key={uuidv4()} secondary={v} />)}
-                                    </Grid>
-                                </>
-                            ))}
+                                            e.varietals.map((v) => (
+                                                <div key={uuidv4()}>
+                                                    <Button onClick={() => handleOpen(v)} key={uuidv4()}>
+                                                        {'- ' + v.toUpperCase()}
+                                                    </Button>
+                                                </div>
+                                                // <Link
+                                                //     to={`/wines-guide/${v}`}
+                                                //     key={uuidv4()}
+                                                //     className="wine__guide--links"
+                                                // >
+                                                //     {'- ' + v.toUpperCase()}
+                                                // </Link>
+                                            ))}
+                                    </article>
+                                ))}
+                            <article key={uuidv4()}>
+                                {i.varietals &&
+                                    i.varietals.map((v) => (
+                                        <Link to={`/:${v}`} key={uuidv4()} className="wine__guide--links">
+                                            {'- ' + v.toUpperCase()}
+                                        </Link>
+                                    ))}
+                            </article>
+                        </section>
                     </Grid>
-                    <Box className="wine__guide--container">
-                        <List>
-                            {i.varietals && i.varietals.map((v) => <ListItemText key={uuidv4()} secondary={v} />)}
-                        </List>
-                    </Box>
-                </>
-            ))}
-        </Box>
+                ))}
+            </Grid>
+            <DetailWine open={open} name={selectedVarietal} onClose={handleClose} />
+        </>
     );
 };
 

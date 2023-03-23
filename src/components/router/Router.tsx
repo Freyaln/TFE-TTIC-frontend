@@ -40,7 +40,6 @@ function IndexRouter() {
                     loader: async ({ params }) => {
                         const recipe = await axios.get(`${URL}recipes/${params.id}/information?apiKey=${KEY}`);
                         if (recipe) {
-                            console.log(recipe.data);
                             return recipe.data;
                         } else {
                             throw new Error(`Photo with title ${params.title} not found`);
