@@ -201,11 +201,11 @@ code {
 /* IMAGE LIST */
 
 .image_list--container--mobile {
-  @apply justify-items-center w-11/12 h-auto mt-4 mx-auto;
+  @apply justify-items-center w-11/12 h-full mt-4 mx-auto;
 }
 
 .image_list--container--desktop {
-  @apply w-11/12 h-auto mt-4 mx-auto;
+  @apply w-11/12 h-full mt-4 mx-auto;
 }
 
 .image_list--list_item_text {
@@ -294,4 +294,18 @@ code {
 
 .wine__guide--container {
   @apply flex flex-row;
+}
+
+/* PAGINATION */
+
+.pagination--container {
+  @apply flex flex-col items-center;
+}
+
+.pagination--per__page {
+  @apply w-2/6;
+}
+
+.pagination--page {
+  @apply text-sm;
 }

@@ -14,7 +14,7 @@ import { IUser } from '../services/auth.api';
 
 export const fetchingUserFilteredActions = createAsyncThunk(
     'fetch',
-    async (payload: IUser, { dispatch, rejectWithValue }) => {
+    async (payload: { user: IUser; page: number; count: number }, { dispatch, rejectWithValue }) => {
         try {
             dispatch(fetchingStart());
             const data: Irecipes[] = await recipesApi.fetchFiltered(payload);

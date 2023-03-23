@@ -11,9 +11,11 @@ export async function getRandomRecipe(): Promise<Irecipes[]> {
 }
 
 export const recipesApi = {
-    fetchFiltered: async (user: IUser) => {
-        const userDiets = user?.diets || {};
-        const userAllergies = user?.allergies || {};
+    fetchFiltered: async (payload: { user: IUser; page: number; count: number }) => {
+        const offset = payload.page;
+        const number = payload.count;
+        const userDiets = payload.user?.diets || {};
+        const userAllergies = payload.user?.allergies || {};
         const activeDiets = Object.entries(userDiets).filter(([key, value]) => value);
         const activeAllergies = Object.entries(userAllergies).filter(([key, value]) => value);
         const config = {
@@ -27,7 +29,7 @@ export const recipesApi = {
             const diets = activeDiets.map(([key]) => key).join('|');
             const allergies = activeAllergies.map(([key]) => key).join(',');
             const response = await axios.get(
-                `${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&intolerances=${allergies}number=50`,
+                `${URL}recipes/complexSearch?apiKey=${KEY}&diet=${diets}&intolerances=${allergies}&number=${number}&offset=${offset}`,
                 config,
             );
             return response.data.results;
