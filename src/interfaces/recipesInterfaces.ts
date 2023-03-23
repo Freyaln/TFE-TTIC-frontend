@@ -79,7 +79,7 @@ type measure = {
     unitLong: string;
 };
 
-type instructions = {
+export type instructions = {
     name: string;
     steps: steps[];
 };

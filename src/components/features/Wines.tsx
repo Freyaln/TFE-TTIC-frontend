@@ -21,21 +21,26 @@ const Wines = ({ wines }: IWinesDetails) => {
         <Box>
             {wines &&
                 wines.productMatches.map((i) => (
-                    <>
+                    <div key={uuidv4()}>
                         <Typography variant="h6" className="recipe--details--subtitle">
                             Suggested wine
                         </Typography>
-                        <Box>
-                            <List className="recipe--details--wine">
-                                <ListItemText className="recipe--details--list__item--text--sm" primary={i.title} />
+                        <Box key={uuidv4()}>
+                            <List className="recipe--details--wine" key={uuidv4()}>
+                                <ListItemText
+                                    className="recipe--details--list__item--text--sm"
+                                    primary={i.title}
+                                    key={uuidv4()}
+                                />
                                 <Box
                                     component="img"
                                     className="recipe--details--list__item--image--wine"
                                     alt={i.title}
                                     src={`${i.imageUrl}`}
+                                    key={uuidv4()}
                                 ></Box>
                                 <ListItem key={uuidv4()}>
-                                    <ListItemText primary={i.description}></ListItemText>
+                                    <ListItemText primary={i.description} key={uuidv4()}></ListItemText>
                                 </ListItem>
                                 {paired && (
                                     <>
@@ -43,19 +48,20 @@ const Wines = ({ wines }: IWinesDetails) => {
                                             variant="h6"
                                             fontSize={'1rem'}
                                             className="recipe--details--subtitle"
+                                            key={uuidv4()}
                                         >
                                             More suggestions ? Take a look
                                         </Typography>
                                         {wines.pairedWines.map((w) => (
                                             <List key={uuidv4()}>
-                                                <ListItemText primary={w} />
+                                                <ListItemText primary={w} key={uuidv4()} />
                                             </List>
                                         ))}
                                     </>
                                 )}
                             </List>
                         </Box>
-                    </>
+                    </div>
                 ))}
         </Box>
     );

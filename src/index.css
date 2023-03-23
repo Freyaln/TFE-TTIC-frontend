@@ -239,19 +239,31 @@ code {
 }
 
 .recipe--details--subtitle {
-  @apply font-playfair font-bold ml-10 mt-10 !important;
+  @apply font-playfair font-bold ml-10 mt-10 mb-5 !important;
 }
 
 .recipe--details--instructions {
   @apply flex flex-col w-11/12 m-auto;
 }
 
-.recipe--details--instructions--list__item--text .MuiListItemText-primary {
+.recipe--details--instructions--accordion .MuiAccordionSummary-root {
+  @apply bg-darker-brown !important;
+}
+
+.recipe--details--instructions--accordion .MuiAccordion-gutters {
+  @apply m-2;
+}
+
+.recipe--details--instructions--accordion--step {
   @apply font-playfair font-bold !important;
 }
 
-.recipe--details--instructions--list__item--text .MuiListItemText-secondary {
-  @apply font-extrabold !important;
+.recipe--details--instructions--accordion--details .MuiAccordionDetails-root {
+  @apply bg-brown !important;
+}
+
+.recipe--details--instructions--accordion--text {
+  @apply font-playfair !important;
 }
 
 .recipe--details--list--wines {

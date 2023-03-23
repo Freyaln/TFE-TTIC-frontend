@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, forwardRef, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,6 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Irecipes } from '../../interfaces/recipesInterfaces';
 import Wines from '../features/Wines';
+import Instructions from '../features/Instructions';
 
 const possiblePersons = [
     {
@@ -40,6 +41,7 @@ const Recipe: FC = ({}) => {
     const [columns, setColumns] = useState<number>(1);
     const [moreWines, setMoreWines] = useState<boolean>(false);
     const datas: Irecipes = useLoaderData() as Irecipes;
+
     const handleChangePersons = (event: SelectChangeEvent) => {
         setPersons(event.target.value);
     };
@@ -54,8 +56,6 @@ const Recipe: FC = ({}) => {
             setMoreWines(true);
         }
     }, [datas]);
-
-    console.log(datas.analyzedInstructions);
 
     return (
         <Box>
@@ -127,25 +127,7 @@ const Recipe: FC = ({}) => {
                         ))
                     )}
                 </List>
-                <List>
-                    <Box className="recipe--details--instructions">
-                        <Typography variant="h2" fontSize="1.25rem" className="recipe--details--subtitle">
-                            Cooking instructions
-                        </Typography>
-                        <List>
-                            {datas.analyzedInstructions.map((i) =>
-                                i.steps.map((s) => (
-                                    <ListItemText
-                                        className="recipe--details--instructions--list__item--text"
-                                        primary={`Step ${s.number}`}
-                                        secondary={s.step}
-                                        key={uuidv4()}
-                                    ></ListItemText>
-                                )),
-                            )}
-                        </List>
-                    </Box>
-                </List>
+                {datas && <Instructions instructions={datas.analyzedInstructions} />}
             </Box>
             {moreWines && <Wines wines={datas.winePairing} />}
         </Box>
